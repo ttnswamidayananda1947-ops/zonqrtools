@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Zonqr Tools - Premium Free Online Tools</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header { padding: 40px 20px 20px; }
+    
+    .site-logo { max-width: 180px; height: auto; margin-bottom: 10px; cursor: pointer; }
+    header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; cursor: pointer; }
+    header p { font-size: 1rem; font-weight: 600; color: #94a3b8; margin-top: 5px; }
+    
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      flex: 1;
+      width: 100%;
+    }
+    
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1000px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    
+    .tool-card {
+      background: #1e293b;
+      border: 2px solid #0ea5e9;
+      border-radius: 20px;
+      padding: 35px 25px;
+      text-decoration: none; 
+      color: white;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-10px);
+      background: white;
+      color: black;
+      border-color: #0ea5e9;
+      box-shadow: 0 0 35px rgba(0, 255, 255, 0.6);
+    }
+    
+    .card-icon { font-size: 3.5rem; margin-bottom: 15px; transition: transform 0.3s ease; }
+    .tool-card:hover .card-icon { transform: scale(1.1); }
+    .tool-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+    .tool-card p { font-size: 0.9rem; color: #94a3b8; }
+    .tool-card:hover p { color: #475569; }
+  
+    .bottom-ad-container { 
+      margin-top: 30px; 
+      margin-bottom: 20px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      width: 100%; 
+      max-width: 728px; 
+      min-height: 90px;
+      color: #64748b;
+      font-size: 0.9rem;
+      border: 1px dashed #1e293b;
+      border-radius: 10px;
+    }
+
+    footer { background: #0f172a; border-top: 1px solid #1e293b; padding: 30px 20px; color: #64748b; font-size: 0.9rem; margin-top: auto; }
+    footer a { color: #0ea5e9; text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    footer a:hover { color: #38bdf8; }
+    .footer-credits { margin-top: 10px; font-size: 0.8rem; color: #475569; }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&amp;display=swap" rel="stylesheet"/>
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html">
+      <img alt="Zonqr Tools Logo" class="site-logo" src="logo.png"/>
+    </a>
+    <h1 onclick="window.location.href='index.html'">Zonqr Tools</h1>
+    <p>Premium &amp; Futuristic Free Online Tools</p>
+  </header>
+
+  <div class="main-container">
+    
+    <div class="tools-grid">
+      
+      <!-- Redirects to qrcode.html -->
+      <a href="qrcode.html" class="tool-card">
+        <div class="card-icon">🔲</div>
+        <h3>QR Code Generator</h3>
+        <p>Create Standard &amp; Premium Custom QR codes instantly.</p>
+      </a>
+
+      <!-- Redirects to cat.html -->
+      <a href="cat.html" class="tool-card">
+        <div class="card-icon">🐱</div>
+        <h3>Hit The Cat (Fun Game)</h3>
+        <p>Tap the cat and see the magic! Lots of fun included.</p>
+      </a>
+
+    </div>
+
+    <!-- Ad placeholder text placed here -->
+    <div class="bottom-ad-container">
+      Banner 728x90 Ad Script Here
+    </div>
+
+  </div>
+
+  <footer>
+    <div>
+      <strong><a href="index.html">ZonqrTools.blogspot.com</a></strong> &#169; 2026 &#8212; All Rights Reserved.
+    </div>
+    <div class="footer-credits">
+      Designed with 💙 for Free Online Utilities and Developers.
+    </div>
+  </footer>
+
+</body>
+</html>

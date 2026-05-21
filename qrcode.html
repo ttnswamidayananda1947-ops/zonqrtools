@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>QR Code Studio - Zonqr Tools</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header { padding: 40px 20px 20px; }
+    
+    .site-logo { max-width: 180px; height: auto; margin-bottom: 10px; cursor: pointer; }
+    header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; cursor: pointer; }
+    header p { font-size: 1rem; font-weight: 600; color: #94a3b8; margin-top: 5px; }
+    
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      flex: 1;
+      width: 100%;
+    }
+    
+    .tool-box {
+      background: white;
+      color: black;
+      padding: 35px 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+      text-align: left;
+    }
+    
+    .tool-box h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: #0f172a;
+      text-align: center;
+    }
+
+    .sub-section {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      width: 100%;
+    }
+
+    .premium-box {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 2px solid #f59e0b;
+      box-shadow: 0 5px 15px rgba(245, 158, 11, 0.15);
+    }
+
+    .sub-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 15px;
+    }
+
+    .premium-box h3 { color: #d97706; }
+    
+    .tool-box input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    .premium-options {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .premium-options label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .premium-options input[type="color"] {
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .file-input-box {
+      width: 100%;
+      padding: 10px;
+      border: 1.5px dashed #d97706;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 12px;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    
+    .btn-generate, .btn-download, .btn-back {
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.2s;
+      width: 100%;
+    }
+    
+    .btn-generate { background: linear-gradient(135deg, #0ea5e9, #0284c7); font-size: 16px; }
+    .btn-premium { background: linear-gradient(135deg, #f59e0b, #d97706); font-size: 16px; margin-top: 5px; border: none; border-radius: 10px; color: white; width: 100%; padding: 12px 18px; cursor: pointer; transition: transform 0.2s; font-weight: 600;}
+    .btn-download { background: linear-gradient(135deg, #16a34a, #15803d); margin-top: 15px; font-size: 16px; }
+    .btn-back { background: #64748b; margin-top: 10px; font-size: 15px; text-decoration: none; display: block; }
+    
+    .btn-generate:active, .btn-download:active, .btn-premium:active, .btn-back:active { transform: scale(0.97); }
+    
+    .qr-output { margin-top: 20px; display: flex; justify-content: center; }
+    .qr-output img, .qr-output canvas { border: 5px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.15); border-radius: 10px; }
+  
+    .bottom-ad-container { 
+      margin-top: 30px; 
+      margin-bottom: 20px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      width: 100%; 
+      max-width: 728px; 
+      min-height: 90px;
+      color: #64748b;
+      font-size: 0.9rem;
+      border: 1px dashed #1e293b;
+      border-radius: 10px;
+    }
+    
+    footer { background: #0f172a; border-top: 1px solid #1e293b; padding: 30px 20px; color: #64748b; font-size: 0.9rem; margin-top: auto; }
+    footer a { color: #0ea5e9; text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    footer a:hover { color: #38bdf8; }
+    .footer-credits { margin-top: 10px; font-size: 0.8rem; color: #475569; }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&amp;display=swap" rel="stylesheet"/>
+</head>
+
+<body>
+
+  <!-- Social Bar Ad Script Here -->
+
+  <!-- Popunder Ad Script Here -->
+
+  <header>
+    <a href="index.html">
+      <img alt="Zonqr Tools Logo" class="site-logo" src="logo.png"/>
+    </a>
+    <h1 onclick="window.location.href='index.html'">Zonqr Tools</h1>
+    <p>Premium &amp; Futuristic Free Online Tools</p>
+  </header>
+
+  <div class="main-container">
+    
+    <div class="tool-box">
+      <h2>QR Code Studio</h2>
+      
+      <div class="sub-section">
+        <h3>🔳 Standard Generator</h3>
+        <input id="qrTextBasic" placeholder="https://example.com" type="text"/>
+        <button class="btn-generate" onclick="generateBasicQR()">📡 Generate Normal QR</button>
+        <div class="qr-output" id="qrOutputBasic"></div>
+        <button class="btn-download" id="downloadBtnBasic" style="display:none;" onclick='downloadQR("qrOutputBasic", "Standard-QR")'>📥 Download QR</button>
+      </div>
+
+      <div class="sub-section premium-box">
+        <h3>👑 Premium Custom Generator</h3>
+        <input id="qrTextPremium" placeholder="Your URL or Text here..." type="text"/>
+        
+        <div class="premium-options">
+          <label>Background Color: <input id="qrColorLight" type="color" value="#ffffff"/></label>
+        </div>
+
+        <label style="font-size:13px; font-weight:600; color:#d97706; margin-bottom:5px; display:block;">Upload Logo (Center):</label>
+        <input accept="image/*" class="file-input-box" id="qrLogoInput" type="file"/>
+
+        <button class="btn-premium" onclick="generatePremiumQR()">💎 Generate Premium QR</button>
+        
+        <div class="qr-output" id="qrOutputPremium"></div>
+        <button class="btn-download" id="downloadBtnPremium" style="display:none;" onclick='downloadQR("qrOutputPremium", "Premium-QR")'>📥 Download High-Res QR</button>
+      </div>
+
+      <!-- Native Banner Ad Script Here (Optional Place) -->
+
+      <a href="index.html" class="btn-back">⬅️ Back to Home</a>
+    </div>
+
+    <!-- Banner Ad Container -->
+    <div class="bottom-ad-container">
+      Banner 728x90 Ad Script Here
+    </div>
+
+  </div>
+
+  <footer>
+    <div>
+      <strong><a href="index.html">ZonqrTools.blogspot.com</a></strong> &#169; 2026 &#8212; All Rights Reserved.
+    </div>
+    <div class="footer-credits">
+      Designed with 💙 for Free Online Utilities and Developers.
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script type="text/javascript">
+    // --- Basic QR Logic ---
+    function generateBasicQR() {
+      var raw = document.getElementById("qrTextBasic").value.trim();
+      if (raw === "") { alert("Please enter a valid URL."); return; }
+      var output = document.getElementById("qrOutputBasic");
+      output.innerHTML = "";
+      new QRCode(output, { text: raw, width: 220, height: 220 });
+      document.getElementById("downloadBtnBasic").style.display = "block";
+    }
+
+    // --- Premium Custom QR Logic ---
+    function generatePremiumQR() {
+      var raw = document.getElementById("qrTextPremium").value.trim();
+      if (raw === "") { alert("Please enter a valid URL."); return; }
+      
+      var cLight = document.getElementById("qrColorLight").value;
+      var logoInput = document.getElementById("qrLogoInput").files[0];
+      
+      var output = document.getElementById("qrOutputPremium");
+      output.innerHTML = ""; 
+      
+      new QRCode(output, {
+        text: raw,
+        width: 250,
+        height: 250,
+        colorDark : "#000000", 
+        colorLight : cLight,
+        correctLevel : QRCode.CorrectLevel.H
+      });
+
+      setTimeout(function() {
+        var canvas = output.querySelector("canvas");
+        if (canvas && logoInput) {
+          var ctx = canvas.getContext("2d");
+          var img = new Image();
+          var reader = new FileReader();
+          
+          reader.onload = function(e) {
+            img.onload = function() {
+              var logoSize = 60; 
+              var x = (canvas.width - logoSize) / 2;
+              var y = (canvas.height - logoSize) / 2;
+              
+              ctx.fillStyle = cLight;
+              ctx.fillRect(x - 5, y - 5, logoSize + 10, logoSize + 10);
+              
+              ctx.drawImage(img, x, y, logoSize, logoSize);
+            }
+            img.src = e.target.result;
+          }
+          reader.readAsDataURL(logoInput);
+        }
+        document.getElementById("downloadBtnPremium").style.display = "block";
+      }, 300); 
+    }
+
+    // --- Universal Download Logic ---
+    function downloadQR(outputId, fileName) {
+      // Smartlink 1 Ad Script Here (Triggers on Click)
+      window.open("Smartlink_1 Here", "_blank");
+      
+      var canvas = document.querySelector("#" + outputId + " canvas");
+      if (canvas) {
+        var link = document.createElement("a");
+        link.download = fileName + ".png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      } else {
+        alert("Please generate a QR code first!");
+      }
+    }
+  </script>
+</body>
+</html>
