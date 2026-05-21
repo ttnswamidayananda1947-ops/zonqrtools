@@ -189,6 +189,7 @@
     <div class="tool-box">
       <h2>QR Code Studio</h2>
       
+      <!-- ===== STANDARD GENERATOR ===== -->
       <div class="sub-section">
         <h3>🔳 Standard Generator</h3>
         <input id="qrTextBasic" placeholder="https://example.com" type="text"/>
@@ -197,12 +198,14 @@
         <button class="btn-download" id="downloadBtnBasic" style="display:none;" onclick='downloadQR("qrOutputBasic", "Standard-QR")'>📥 Download QR</button>
       </div>
 
+      <!-- ===== PREMIUM GENERATOR ===== -->
       <div class="sub-section premium-box">
         <h3>👑 Premium Custom Generator</h3>
         <input id="qrTextPremium" placeholder="Your URL or Text here..." type="text"/>
         
         <div class="premium-options">
-          <label>Background Color: <input id="qrColorLight" type="color" value="#ffffff"/></label>
+          <label>QR Color: <input id="qrColorDark" type="color" value="#000000"/></label>
+          <label>Background: <input id="qrColorLight" type="color" value="#ffffff"/></label>
         </div>
 
         <label style="font-size:13px; font-weight:600; color:#d97706; margin-bottom:5px; display:block;">Upload Logo (Center):</label>
@@ -238,77 +241,122 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <script type="text/javascript">
-    // --- Basic QR Logic ---
+
+    // ============================================================
+    // Helper: Get canvas from QR output div
+    // qrcodejs creates a <canvas> internally and also an <img>.
+    // We always need the canvas for reliable data access.
+    // ============================================================
+    function getCanvas(outputId) {
+      return document.querySelector("#" + outputId + " canvas");
+    }
+
+    // ============================================================
+    // Basic QR Generator
+    // Fix: Added correctLevel H so Google Lens can scan reliably
+    // ============================================================
     function generateBasicQR() {
       var raw = document.getElementById("qrTextBasic").value.trim();
       if (raw === "") { alert("Please enter a valid URL."); return; }
+
       var output = document.getElementById("qrOutputBasic");
       output.innerHTML = "";
-      new QRCode(output, { text: raw, width: 220, height: 220 });
+
+      new QRCode(output, {
+        text: raw,
+        width: 256,
+        height: 256,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H   // FIX: High error correction = scannable
+      });
+
       document.getElementById("downloadBtnBasic").style.display = "block";
     }
 
-    // --- Premium Custom QR Logic ---
+    // ============================================================
+    // Premium QR Generator
+    // Fix: Proper canvas-based logo drawing, dark color picker added
+    // ============================================================
     function generatePremiumQR() {
       var raw = document.getElementById("qrTextPremium").value.trim();
       if (raw === "") { alert("Please enter a valid URL."); return; }
-      
+
+      var cDark  = document.getElementById("qrColorDark").value;
       var cLight = document.getElementById("qrColorLight").value;
       var logoInput = document.getElementById("qrLogoInput").files[0];
-      
+
       var output = document.getElementById("qrOutputPremium");
-      output.innerHTML = ""; 
-      
+      output.innerHTML = "";
+
       new QRCode(output, {
         text: raw,
-        width: 250,
-        height: 250,
-        colorDark : "#000000", 
-        colorLight : cLight,
-        correctLevel : QRCode.CorrectLevel.H
+        width: 300,
+        height: 300,
+        colorDark: cDark,
+        colorLight: cLight,
+        correctLevel: QRCode.CorrectLevel.H   // H = up to 30% damage tolerance for logo
       });
 
-      setTimeout(function() {
-        var canvas = output.querySelector("canvas");
-        if (canvas && logoInput) {
-          var ctx = canvas.getContext("2d");
-          var img = new Image();
+      // Wait for qrcodejs to finish rendering, then overlay logo
+      setTimeout(function () {
+        var canvas = getCanvas("qrOutputPremium");
+        if (!canvas) return;
+
+        if (logoInput) {
           var reader = new FileReader();
-          
-          reader.onload = function(e) {
-            img.onload = function() {
-              var logoSize = 60; 
-              var x = (canvas.width - logoSize) / 2;
+          reader.onload = function (e) {
+            var img = new Image();
+            img.onload = function () {
+              var ctx = canvas.getContext("2d");
+              // Logo size = 22% of QR width (safe zone for H correction level)
+              var logoSize = Math.floor(canvas.width * 0.22);
+              var x = (canvas.width  - logoSize) / 2;
               var y = (canvas.height - logoSize) / 2;
-              
-              ctx.fillStyle = cLight;
-              ctx.fillRect(x - 5, y - 5, logoSize + 10, logoSize + 10);
-              
+
+              // White padding behind logo for clean look
+              ctx.fillStyle = "#ffffff";
+              ctx.fillRect(x - 6, y - 6, logoSize + 12, logoSize + 12);
+
+              // Draw logo centered
               ctx.drawImage(img, x, y, logoSize, logoSize);
-            }
+            };
             img.src = e.target.result;
-          }
+          };
           reader.readAsDataURL(logoInput);
         }
+
         document.getElementById("downloadBtnPremium").style.display = "block";
-      }, 300); 
+      }, 400);
     }
 
-    // --- Universal Download Logic ---
+    // ============================================================
+    // Universal Download
+    // Fix: Falls back to <img> src if canvas not directly accessible
+    // ============================================================
     function downloadQR(outputId, fileName) {
       // Smartlink 1 Ad Script Here (Triggers on Click)
       window.open("Smartlink_1 Here", "_blank");
-      
+
       var canvas = document.querySelector("#" + outputId + " canvas");
+      var img    = document.querySelector("#" + outputId + " img");
+
+      var link = document.createElement("a");
+      link.download = fileName + ".png";
+
       if (canvas) {
-        var link = document.createElement("a");
-        link.download = fileName + ".png";
+        // Canvas path — full quality PNG
         link.href = canvas.toDataURL("image/png");
+        link.click();
+      } else if (img && img.src) {
+        // Fallback: use the img element's src (base64 data URL)
+        link.href = img.src;
         link.click();
       } else {
         alert("Please generate a QR code first!");
       }
     }
+
   </script>
 </body>
 </html>
