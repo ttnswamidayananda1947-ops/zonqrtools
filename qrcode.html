@@ -10,7 +10,7 @@
     
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #020617);
+      background: #020617;
       color: white;
       text-align: center;
       min-height: 100vh;
@@ -18,345 +18,290 @@
       flex-direction: column;
     }
     
-    header { padding: 40px 20px 20px; }
-    
-    .site-logo { max-width: 180px; height: auto; margin-bottom: 10px; cursor: pointer; }
-    header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; cursor: pointer; }
-    header p { font-size: 1rem; font-weight: 600; color: #94a3b8; margin-top: 5px; }
-    
+    header { padding: 30px 20px; }
+    .site-logo { max-width: 150px; cursor: pointer; }
+    header h1 { font-size: 2rem; color: #fff; }
+
     .main-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       padding: 20px;
-      flex: 1;
       width: 100%;
     }
-    
-    .tool-box {
+
+    /* Standard Box */
+    .standard-box {
       background: white;
-      color: black;
-      padding: 35px 25px;
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
-      width: 100%;
-      max-width: 500px;
-      margin: 20px auto;
-      text-align: left;
-    }
-    
-    .tool-box h2 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: 20px;
-      color: #0f172a;
-      text-align: center;
-    }
-
-    .sub-section {
-      background: #f8fafc;
-      border: 2px dashed #cbd5e1;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 25px;
-      width: 100%;
-    }
-
-    .premium-box {
-      background: linear-gradient(135deg, #fffbeb, #fef3c7);
-      border: 2px solid #f59e0b;
-      box-shadow: 0 5px 15px rgba(245, 158, 11, 0.15);
-    }
-
-    .sub-section h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 15px;
-    }
-
-    .premium-box h3 { color: #d97706; }
-    
-    .tool-box input[type="text"] {
-      width: 100%;
-      padding: 12px 14px;
-      font-size: 14px;
-      border-radius: 10px;
-      border: 1.5px solid #cbd5e1;
-      outline: none;
-      margin-bottom: 15px;
-    }
-
-    .premium-options {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .premium-options label {
-      font-size: 13px;
-      font-weight: 600;
       color: #334155;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .premium-options input[type="color"] {
-      border: none;
-      width: 35px;
-      height: 35px;
-      border-radius: 5px;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .file-input-box {
+      padding: 30px;
+      border-radius: 20px;
       width: 100%;
-      padding: 10px;
-      border: 1.5px dashed #d97706;
-      border-radius: 8px;
-      background: #fff;
-      font-size: 12px;
+      max-width: 550px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    /* Premium Yellow Box */
+    .premium-box {
+      background: #fffbeb; /* Light Yellowish Bg */
+      color: #92400e;
+      padding: 35px;
+      border-radius: 25px;
+      width: 100%;
+      max-width: 600px;
+      border: 4px solid #fbbf24;
+      box-shadow: 0 15px 35px rgba(251, 191, 36, 0.2);
+    }
+
+    h2 { margin-bottom: 20px; font-weight: 800; }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px solid #ddd;
       margin-bottom: 15px;
-      cursor: pointer;
+      font-size: 16px;
     }
-    
-    .btn-generate, .btn-download, .btn-back {
-      padding: 12px 18px;
-      font-size: 14px;
-      font-weight: 600;
-      border: none;
-      border-radius: 10px;
+
+    /* Custom Gradient Swatches */
+    .gradient-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+      background: #fff;
+      padding: 15px;
+      border-radius: 15px;
+      border: 1px solid #fcd34d;
+    }
+
+    .swatch {
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
       cursor: pointer;
-      color: white;
-      transition: transform 0.2s;
+      border: 3px solid transparent;
+      transition: 0.2s;
+    }
+
+    .swatch:hover { transform: scale(1.1); }
+    .swatch.active { border-color: #000; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+
+    .btn {
       width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
     }
-    
-    .btn-generate { background: linear-gradient(135deg, #0ea5e9, #0284c7); font-size: 16px; }
-    .btn-premium { background: linear-gradient(135deg, #f59e0b, #d97706); font-size: 16px; margin-top: 5px; border: none; border-radius: 10px; color: white; width: 100%; padding: 12px 18px; cursor: pointer; transition: transform 0.2s; font-weight: 600;}
-    .btn-download { background: linear-gradient(135deg, #16a34a, #15803d); margin-top: 15px; font-size: 16px; }
-    .btn-back { background: #64748b; margin-top: 10px; font-size: 15px; text-decoration: none; display: block; }
-    
-    .btn-generate:active, .btn-download:active, .btn-premium:active, .btn-back:active { transform: scale(0.97); }
-    
-    .qr-output { margin-top: 20px; display: flex; justify-content: center; }
-    .qr-output img, .qr-output canvas { border: 5px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.15); border-radius: 10px; }
-  
-    .bottom-ad-container { 
-      margin-top: 30px; 
-      margin-bottom: 20px; 
-      display: flex; 
-      justify-content: center; 
+
+    .btn-blue { background: #2563eb; color: white; }
+    .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; margin-top: 10px; }
+
+    /* QR Preview Area */
+    .qr-wrapper {
+      margin-top: 25px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+      display: none;
+      flex-direction: column;
       align-items: center;
-      width: 100%; 
-      max-width: 728px; 
-      min-height: 90px;
-      color: #64748b;
-      font-size: 0.9rem;
-      border: 1px dashed #1e293b;
-      border-radius: 10px;
+      border: 8px solid #fbbf24; /* Thick Border like image */
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
-    
-    footer { background: #0f172a; border-top: 1px solid #1e293b; padding: 30px 20px; color: #64748b; font-size: 0.9rem; margin-top: auto; }
-    footer a { color: #0ea5e9; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-    footer a:hover { color: #38bdf8; }
-    .footer-credits { margin-top: 10px; font-size: 0.8rem; color: #475569; }
+
+    .promo-watermark {
+      margin-top: 15px;
+      font-weight: 900;
+      color: #000;
+      font-size: 12px;
+      text-align: center;
+      max-width: 280px;
+    }
+
+    .download-btn {
+      background: #059669;
+      color: white;
+      margin-top: 15px;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    footer { padding: 20px; color: #475569; font-size: 12px; }
   </style>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&amp;display=swap" rel="stylesheet"/>
 </head>
-
 <body>
 
-  <!-- Social Bar Ad Script Here -->
-
-  <!-- Popunder Ad Script Here -->
-
   <header>
-    <a href="index.html">
-      <img alt="Zonqr Tools Logo" class="site-logo" src="logo.png"/>
-    </a>
-    <h1 onclick="window.location.href='index.html'">Zonqr Tools</h1>
-    <p>Premium &amp; Futuristic Free Online Tools</p>
+    <img src="logo.png" class="site-logo" onclick="location.href='index.html'">
+    <h1>QR Studio Pro</h1>
   </header>
 
   <div class="main-container">
     
-    <div class="tool-box">
-      <h2>QR Code Studio</h2>
+    <div class="standard-box">
+      <h2>🔳 Standard QR</h2>
+      <input type="text" id="basicInput" placeholder="Enter link here...">
+      <button class="btn btn-blue" onclick="generateQR('basic')">Generate Basic</button>
       
-      <!-- ===== STANDARD GENERATOR ===== -->
-      <div class="sub-section">
-        <h3>🔳 Standard Generator</h3>
-        <input id="qrTextBasic" placeholder="https://example.com" type="text"/>
-        <button class="btn-generate" onclick="generateBasicQR()">📡 Generate Normal QR</button>
-        <div class="qr-output" id="qrOutputBasic"></div>
-        <button class="btn-download" id="downloadBtnBasic" style="display:none;" onclick='downloadQR("qrOutputBasic", "Standard-QR")'>📥 Download QR</button>
+      <div id="basicWrapper" class="qr-wrapper" style="border-color: #ddd;">
+        <div id="basicQR"></div>
+        <div class="promo-watermark">did you want to create like this QR go to https://zonqrtools.kalvivaanam.in/qrcode.html</div>
+        <a id="dlBasic" class="download-btn" href="#">Download PNG</a>
       </div>
-
-      <!-- ===== PREMIUM GENERATOR ===== -->
-      <div class="sub-section premium-box">
-        <h3>👑 Premium Custom Generator</h3>
-        <input id="qrTextPremium" placeholder="Your URL or Text here..." type="text"/>
-        
-        <div class="premium-options">
-          <label>QR Color: <input id="qrColorDark" type="color" value="#000000"/></label>
-          <label>Background: <input id="qrColorLight" type="color" value="#ffffff"/></label>
-        </div>
-
-        <label style="font-size:13px; font-weight:600; color:#d97706; margin-bottom:5px; display:block;">Upload Logo (Center):</label>
-        <input accept="image/*" class="file-input-box" id="qrLogoInput" type="file"/>
-
-        <button class="btn-premium" onclick="generatePremiumQR()">💎 Generate Premium QR</button>
-        
-        <div class="qr-output" id="qrOutputPremium"></div>
-        <button class="btn-download" id="downloadBtnPremium" style="display:none;" onclick='downloadQR("qrOutputPremium", "Premium-QR")'>📥 Download High-Res QR</button>
-      </div>
-
-      <!-- Native Banner Ad Script Here (Optional Place) -->
-
-      <a href="index.html" class="btn-back">⬅️ Back to Home</a>
     </div>
 
-    <!-- Banner Ad Container -->
-    <div class="bottom-ad-container">
-      Banner 728x90 Ad Script Here
+    <div class="premium-box">
+      <h2>💎 Premium Style QR</h2>
+      <input type="text" id="premiumInput" placeholder="Enter your premium link...">
+      
+      <p style="font-weight: bold; font-size: 14px; margin-bottom: 5px;">Pick Your Style:</p>
+      <div class="gradient-grid" id="swatchGrid">
+        </div>
+
+      <p style="font-weight: bold; font-size: 14px; margin-bottom: 5px;">Center Logo (Optional):</p>
+      <input type="file" id="logoFile" accept="image/*" style="margin-bottom: 15px;">
+
+      <button class="btn btn-gold" onclick="generateQR('premium')">Generate Premium QR</button>
+
+      <div id="premiumWrapper" class="qr-wrapper">
+        <div id="premiumQR"></div>
+        <div class="promo-watermark">did you want to create like this QR go to https://zonqrtools.kalvivaanam.in/qrcode.html</div>
+        <a id="dlPremium" class="download-btn" href="#">Download High-Res PNG</a>
+      </div>
     </div>
 
   </div>
 
-  <footer>
-    <div>
-      <strong><a href="index.html">ZonqrTools.blogspot.com</a></strong> &#169; 2026 &#8212; All Rights Reserved.
-    </div>
-    <div class="footer-credits">
-      Designed with 💙 for Free Online Utilities and Developers.
-    </div>
-  </footer>
+  <canvas id="hiddenCanvas" style="display:none;"></canvas>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const gradientList = [
+      "linear-gradient(135deg, #ff0080, #ff4d00, #ffcc00)", "linear-gradient(135deg, #ff00cc, #3333ff)",
+      "linear-gradient(135deg, #ff0066, #ff6600, #ffcc00)", "linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045)",
+      "linear-gradient(135deg, #d4145a, #fbb03b)", "linear-gradient(135deg, #ff512f, #dd2476)",
+      "linear-gradient(135deg, #c471f5, #fa71cd)", "linear-gradient(135deg, #ff0844, #ffb199)",
+      "linear-gradient(135deg, #f953c6, #b91d73)", "linear-gradient(135deg, #fc466b, #3f5efb)",
+      "linear-gradient(135deg, #ff9966, #ff5e62)", "linear-gradient(135deg, #ee0979, #ff6a00)",
+      "linear-gradient(135deg, #7f00ff, #e100ff)", "linear-gradient(135deg, #f000ff, #00dbde)",
+      "linear-gradient(135deg, #ff758c, #ff7eb3)", "linear-gradient(135deg, #ff3cac, #784ba0, #2b86c5)",
+      "linear-gradient(135deg, #ff0099, #493240)", "linear-gradient(135deg, #fc4a1a, #f7b733)",
+      "linear-gradient(135deg, #8e2de2, #4a00e0)", "linear-gradient(135deg, #ff6a00, #ee0979, #8e2de2)",
+      "linear-gradient(135deg, #00c6ff, #0072ff, #ff00cc)", "linear-gradient(135deg, #ff416c, #ff4b2b)",
+      "linear-gradient(135deg, #654ea3, #eaafc8)", "linear-gradient(135deg, #f857a6, #ff5858)",
+      "linear-gradient(135deg, #ff00ff, #00ffff)", "linear-gradient(135deg, #ff1493, #9400d3, #4b0082)",
+      "linear-gradient(135deg, #ff512f, #f09819)", "linear-gradient(135deg, #00f260, #0575e6)",
+      "linear-gradient(135deg, #fc00ff, #00dbde)", "linear-gradient(135deg, #ff5f6d, #ffc371)"
+    ];
 
-  <script type="text/javascript">
+    let selectedGrad = gradientList[0];
+    const grid = document.getElementById('swatchGrid');
 
-    // ============================================================
-    // Helper: Get canvas from QR output div
-    // qrcodejs creates a <canvas> internally and also an <img>.
-    // We always need the canvas for reliable data access.
-    // ============================================================
-    function getCanvas(outputId) {
-      return document.querySelector("#" + outputId + " canvas");
-    }
+    // Load swatches
+    gradientList.forEach((g, i) => {
+      const div = document.createElement('div');
+      div.className = 'swatch' + (i===0 ? ' active' : '');
+      div.style.background = g;
+      div.onclick = () => {
+        document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+        div.classList.add('active');
+        selectedGrad = g;
+      };
+      grid.appendChild(div);
+    });
 
-    // ============================================================
-    // Basic QR Generator
-    // Fix: Added correctLevel H so Google Lens can scan reliably
-    // ============================================================
-    function generateBasicQR() {
-      var raw = document.getElementById("qrTextBasic").value.trim();
-      if (raw === "") { alert("Please enter a valid URL."); return; }
+    function generateQR(type) {
+      const input = type === 'basic' ? document.getElementById('basicInput') : document.getElementById('premiumInput');
+      const outputDiv = type === 'basic' ? document.getElementById('basicQR') : document.getElementById('premiumQR');
+      const wrapper = type === 'basic' ? document.getElementById('basicWrapper') : document.getElementById('premiumWrapper');
+      
+      if (!input.value) return alert("Please enter text/URL");
 
-      var output = document.getElementById("qrOutputBasic");
-      output.innerHTML = "";
+      outputDiv.innerHTML = "";
+      const qrSize = 300;
+      
+      // Temporary QR for data
+      const tempDiv = document.createElement('div');
+      new QRCode(tempDiv, { text: input.value, width: qrSize, height: qrSize, correctLevel: QRCode.CorrectLevel.H });
 
-      new QRCode(output, {
-        text: raw,
-        width: 256,
-        height: 256,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H   // FIX: High error correction = scannable
-      });
+      setTimeout(() => {
+        const canvas = document.getElementById('hiddenCanvas');
+        const ctx = canvas.getContext('2d');
+        const qrCanvas = tempDiv.querySelector('canvas');
 
-      document.getElementById("downloadBtnBasic").style.display = "block";
-    }
+        canvas.width = 400;
+        canvas.height = 500;
 
-    // ============================================================
-    // Premium QR Generator
-    // Fix: Proper canvas-based logo drawing, dark color picker added
-    // ============================================================
-    function generatePremiumQR() {
-      var raw = document.getElementById("qrTextPremium").value.trim();
-      if (raw === "") { alert("Please enter a valid URL."); return; }
+        // Background
+        if(type === 'premium') {
+          // Premium Gradient Background
+          let fill;
+          if(selectedGrad.includes('linear-gradient')) {
+             fill = ctx.createLinearGradient(0,0,400,500);
+             const colors = selectedGrad.match(/#[a-fA-F0-9]{6}/g);
+             colors.forEach((c, idx) => fill.addColorStop(idx/(colors.length-1), c));
+          }
+          ctx.fillStyle = fill || "#000";
+        } else {
+          ctx.fillStyle = "#ffffff";
+        }
+        ctx.fillRect(0,0,400,500);
 
-      var cDark  = document.getElementById("qrColorDark").value;
-      var cLight = document.getElementById("qrColorLight").value;
-      var logoInput = document.getElementById("qrLogoInput").files[0];
+        // QR Area White Background
+        ctx.fillStyle = "#ffffff";
+        ctx.roundRect ? ctx.roundRect(30, 30, 340, 340, 20) : ctx.fillRect(30, 30, 340, 340);
+        ctx.fill();
 
-      var output = document.getElementById("qrOutputPremium");
-      output.innerHTML = "";
+        // Draw QR
+        ctx.drawImage(qrCanvas, 50, 50, 300, 300);
 
-      new QRCode(output, {
-        text: raw,
-        width: 300,
-        height: 300,
-        colorDark: cDark,
-        colorLight: cLight,
-        correctLevel: QRCode.CorrectLevel.H   // H = up to 30% damage tolerance for logo
-      });
+        // Watermark Text - Bold Black
+        ctx.fillStyle = type === 'premium' ? "#ffffff" : "#000000";
+        ctx.font = "900 12px Poppins";
+        ctx.textAlign = "center";
+        const lines = ["did you want to create like this QR go to", "https://zonqrtools.kalvivaanam.in/qrcode.html"];
+        ctx.fillText(lines[0], 200, 420);
+        ctx.fillText(lines[1], 200, 440);
 
-      // Wait for qrcodejs to finish rendering, then overlay logo
-      setTimeout(function () {
-        var canvas = getCanvas("qrOutputPremium");
-        if (!canvas) return;
-
-        if (logoInput) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            var img = new Image();
-            img.onload = function () {
-              var ctx = canvas.getContext("2d");
-              // Logo size = 22% of QR width (safe zone for H correction level)
-              var logoSize = Math.floor(canvas.width * 0.22);
-              var x = (canvas.width  - logoSize) / 2;
-              var y = (canvas.height - logoSize) / 2;
-
-              // White padding behind logo for clean look
-              ctx.fillStyle = "#ffffff";
-              ctx.fillRect(x - 6, y - 6, logoSize + 12, logoSize + 12);
-
-              // Draw logo centered
-              ctx.drawImage(img, x, y, logoSize, logoSize);
-            };
-            img.src = e.target.result;
-          };
-          reader.readAsDataURL(logoInput);
+        // Handle Logo for Premium
+        if(type === 'premium' && document.getElementById('logoFile').files[0]) {
+           const reader = new FileReader();
+           reader.onload = (e) => {
+             const img = new Image();
+             img.onload = () => {
+               ctx.fillStyle = "#fff";
+               ctx.fillRect(170, 170, 60, 60);
+               ctx.drawImage(img, 175, 175, 50, 50);
+               finalize();
+             };
+             img.src = e.target.result;
+           };
+           reader.readAsDataURL(document.getElementById('logoFile').files[0]);
+        } else {
+          finalize();
         }
 
-        document.getElementById("downloadBtnPremium").style.display = "block";
-      }, 400);
+        function finalize() {
+          const dataUrl = canvas.toDataURL();
+          outputDiv.innerHTML = `<img src="${dataUrl}" style="width:100%; border-radius:10px;">`;
+          wrapper.style.display = "flex";
+          const dl = type === 'basic' ? document.getElementById('dlBasic') : document.getElementById('dlPremium');
+          dl.href = dataUrl;
+          dl.download = `QR_${Date.now()}.png`;
+        }
+      }, 500);
     }
-
-    // ============================================================
-    // Universal Download
-    // Fix: Falls back to <img> src if canvas not directly accessible
-    // ============================================================
-    function downloadQR(outputId, fileName) {
-      // Smartlink 1 Ad Script Here (Triggers on Click)
-      window.open("Smartlink_1 Here", "_blank");
-
-      var canvas = document.querySelector("#" + outputId + " canvas");
-      var img    = document.querySelector("#" + outputId + " img");
-
-      var link = document.createElement("a");
-      link.download = fileName + ".png";
-
-      if (canvas) {
-        // Canvas path — full quality PNG
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      } else if (img && img.src) {
-        // Fallback: use the img element's src (base64 data URL)
-        link.href = img.src;
-        link.click();
-      } else {
-        alert("Please generate a QR code first!");
-      }
-    }
-
   </script>
+
 </body>
 </html>
