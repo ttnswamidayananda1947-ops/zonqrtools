@@ -20,9 +20,26 @@
     
     header { padding: 40px 20px 20px; }
     
-    .site-logo { max-width: 180px; height: auto; margin-bottom: 10px; cursor: pointer; }
-    header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; cursor: pointer; }
-    header p { font-size: 1rem; font-weight: 600; color: #94a3b8; margin-top: 5px; }
+    .site-logo { 
+      max-width: 180px; 
+      height: auto; 
+      margin-bottom: 10px; 
+      cursor: pointer; 
+    }
+
+    header h1 { 
+      font-size: 2.2rem; 
+      font-weight: 800; 
+      letter-spacing: 1px; 
+      cursor: pointer; 
+    }
+
+    header p { 
+      font-size: 1rem; 
+      font-weight: 600; 
+      color: #94a3b8; 
+      margin-top: 5px; 
+    }
     
     .main-container {
       display: flex;
@@ -54,68 +71,83 @@
     }
 
     /* Cat Game Styles */
-    .cat-container { text-align: center; margin: 20px 0; }
-    .cat-emoji { font-size: 6rem; cursor: pointer; user-select: none; transition: transform 0.1s; display: inline-block; }
-    .cat-emoji:active { transform: scale(0.85); }
-    .score-board { font-size: 1.5rem; font-weight: 800; color: #e11d48; margin-bottom: 10px; text-align: center; }
-  
-    .ad-placeholder {
-      margin: 15px 0;
-      padding: 10px;
-      border: 1px dashed #cbd5e1;
-      background: #f8fafc;
-      color: #64748b;
-      font-size: 0.8rem;
-      border-radius: 10px;
-      min-height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .cat-container { 
+      text-align: center; 
+      margin: 20px 0; 
     }
 
-    .bottom-ad-container { 
-      margin-top: 30px; 
+    .cat-emoji { 
+      font-size: 6rem; 
+      cursor: pointer; 
+      user-select: none; 
+      transition: transform 0.1s; 
+      display: inline-block; 
+    }
+
+    .cat-emoji:active { 
+      transform: scale(0.85); 
+    }
+
+    .score-board { 
+      font-size: 1.5rem; 
+      font-weight: 800; 
+      color: #e11d48; 
       margin-bottom: 20px; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center;
-      width: 100%; 
-      max-width: 728px; 
-      min-height: 90px;
+      text-align: center; 
+    }
+
+    .game-info {
       color: #64748b;
-      font-size: 0.9rem;
-      border: 1px dashed #1e293b;
-      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
 
     .btn-back { 
       background: #64748b; 
-      margin-top: 20px; 
+      margin-top: 25px; 
       font-size: 15px; 
       text-decoration: none; 
-      display: block; 
+      display: inline-block; 
       padding: 12px 18px;
       font-weight: 600;
       border-radius: 10px;
       color: white;
       transition: transform 0.2s;
     }
-    .btn-back:active { transform: scale(0.97); }
+
+    .btn-back:active { 
+      transform: scale(0.97); 
+    }
     
-    footer { background: #0f172a; border-top: 1px solid #1e293b; padding: 30px 20px; color: #64748b; font-size: 0.9rem; margin-top: auto; }
-    footer a { color: #0ea5e9; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-    footer a:hover { color: #38bdf8; }
-    .footer-credits { margin-top: 10px; font-size: 0.8rem; color: #475569; }
+    footer { 
+      background: #0f172a; 
+      border-top: 1px solid #1e293b; 
+      padding: 30px 20px; 
+      color: #64748b; 
+      font-size: 0.9rem; 
+      margin-top: auto; 
+    }
+
+    footer a { 
+      color: #0ea5e9; 
+      text-decoration: none; 
+      font-weight: 600; 
+      transition: color 0.2s; 
+    }
+
+    footer a:hover { 
+      color: #38bdf8; 
+    }
+
+    .footer-credits { 
+      margin-top: 10px; 
+      font-size: 0.8rem; 
+      color: #475569; 
+    }
   </style>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&amp;display=swap" rel="stylesheet"/>
-
-  <!-- Push Notifications -->
-  <script src="https://5gvci.com/act/files/tag.min.js?z=11040680" data-cfasync="false" async></script>
-
-  <!-- OnClick (Popunder) -->
-  <script src="https://quge5.com/88/tag.min.js" data-zone="241495" async data-cfasync="false"></script>
-
 </head>
 
 <body>
@@ -124,91 +156,39 @@
     <a href="index.html">
       <img alt="Zonqr Tools Logo" class="site-logo" src="logo.png"/>
     </a>
-    <h1 onclick="window.location.href='index.html'">Zonqr Tools</h1>
-    <p>Premium &amp; Futuristic Free Online Tools</p>
+
+    <h1 onclick="window.location.href='index.html'">
+      Zonqr Tools
+    </h1>
+
+    <p>
+      Premium &amp; Futuristic Free Online Tools
+    </p>
   </header>
 
   <div class="main-container">
     
     <div class="tool-box">
+
       <h2>🐱 Hit The Cat</h2>
-      <div class="score-board" id="catScore">Score: 0</div>
-      
-      <div class="ad-placeholder">
 
-        <!-- In-Page Push -->
-        <script>
-        (function(s){
-          s.dataset.zone='11036290',
-          s.src='https://nap5k.com/tag.min.js'
-        })(
-          [document.documentElement, document.body]
-          .filter(Boolean)
-          .pop()
-          .appendChild(document.createElement('script'))
-        )
-        </script>
-
+      <div class="score-board" id="catScore">
+        Score: 0
       </div>
 
-      <p style="color:#64748b; margin-bottom:10px;">Tap the cat quickly before page reloads!</p>
+      <div class="game-info">
+        Tap the cat quickly and increase your score!
+      </div>
       
       <div class="cat-container">
-        <span class="cat-emoji" id="catFace" onclick="hitCat()">🐱</span>
+        <span class="cat-emoji" id="catFace" onclick="hitCat()">
+          🐱
+        </span>
       </div>
 
-      <div class="ad-placeholder">
-
-        <!-- In-Page Push -->
-        <script>
-        (function(s){
-          s.dataset.zone='11036290',
-          s.src='https://nap5k.com/tag.min.js'
-        })(
-          [document.documentElement, document.body]
-          .filter(Boolean)
-          .pop()
-          .appendChild(document.createElement('script'))
-        )
-        </script>
-
-      </div>
-
-      <div class="ad-placeholder" style="margin-top: 30px;">
-
-        <!-- In-Page Push -->
-        <script>
-        (function(s){
-          s.dataset.zone='11036290',
-          s.src='https://nap5k.com/tag.min.js'
-        })(
-          [document.documentElement, document.body]
-          .filter(Boolean)
-          .pop()
-          .appendChild(document.createElement('script'))
-        )
-        </script>
-
-      </div>
-
-      <a href="index.html" class="btn-back">⬅️ Back to Home</a>
-    </div>
-
-    <!-- Bottom Banner Ad Container -->
-    <div class="bottom-ad-container">
-
-      <!-- In-Page Push -->
-      <script>
-      (function(s){
-        s.dataset.zone='11036290',
-        s.src='https://nap5k.com/tag.min.js'
-      })(
-        [document.documentElement, document.body]
-        .filter(Boolean)
-        .pop()
-        .appendChild(document.createElement('script'))
-      )
-      </script>
+      <a href="index.html" class="btn-back">
+        ⬅️ Back to Home
+      </a>
 
     </div>
 
@@ -216,40 +196,44 @@
 
   <footer>
     <div>
-      <strong><a href="index.html">ZonqrTools.blogspot.com</a></strong> &#169; 2026 &#8212; All Rights Reserved.
+      <strong>
+        <a href="index.html">
+          ZonqrTools.blogspot.com
+        </a>
+      </strong> 
+      &#169; 2026 &#8212; All Rights Reserved.
     </div>
+
     <div class="footer-credits">
       Designed with 💙 for Free Online Utilities and Developers.
     </div>
   </footer>
 
-  <script type="text/javascript">
-    var refreshTimer = null; 
-
-    // Auto-reload function specific to the game
-    window.onload = function() {
-      refreshTimer = setInterval(function() { 
-        window.location.reload(); 
-      }, 5000);
-    };
-
+  <script>
     // --- Hit The Cat Logic ---
     var catClicks = 0;
 
     function hitCat() {
 
       catClicks++;
-      document.getElementById('catScore').innerText = "Score: " + catClicks;
+
+      document.getElementById('catScore').innerText =
+        "Score: " + catClicks;
 
       var face = document.getElementById('catFace');
 
-      face.innerText = "🙀"; 
+      face.innerText = "🙀";
 
-      setTimeout(function() {
-        face.innerText = "😻"; 
-        setTimeout(function() { 
-          face.innerText = "🐱"; 
+      setTimeout(function () {
+
+        face.innerText = "😻";
+
+        setTimeout(function () {
+
+          face.innerText = "🐱";
+
         }, 300);
+
       }, 200);
     }
   </script>
