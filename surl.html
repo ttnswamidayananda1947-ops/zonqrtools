@@ -7,269 +7,45 @@
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #020617);
-      color: white;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    
+    body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0f172a, #020617); color: white; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
     header { padding: 40px 20px 20px; }
-    
-    .site-logo { 
-      max-width: 180px; 
-      height: auto; 
-      margin-bottom: 10px; 
-      cursor: pointer; 
-    }
-
-    header h1 { 
-      font-size: 2.2rem; 
-      font-weight: 800; 
-      letter-spacing: 1px; 
-      cursor: pointer; 
-      background: linear-gradient(to right, #a855f7, #06b6d4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    header p { 
-      font-size: 1rem; 
-      font-weight: 600; 
-      color: #94a3b8; 
-      margin-top: 5px; 
-    }
-    
-    .main-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      flex: 1;
-      width: 100%;
-    }
-    
-    .tool-box {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
-      width: 100%;
-      max-width: 550px;
-      margin: 20px auto;
-      text-align: center;
-    }
-    
-    .tool-box h2 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-
-    .tool-info {
-      color: #94a3b8;
-      font-size: 0.95rem;
-      margin-bottom: 25px;
-      line-height: 1.5;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .url-input {
-      width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: 2px solid #334155;
-      background: #0f172a;
-      color: white;
-      font-size: 1rem;
-      outline: none;
-      transition: all 0.3s ease;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .url-input:focus {
-      border-color: #06b6d4;
-      box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
-    }
-
-    .url-input::placeholder { color: #64748b; }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #a855f7, #06b6d4);
-      color: white;
-      border: none;
-      padding: 16px 20px;
-      font-size: 1.1rem;
-      font-weight: 800;
-      border-radius: 12px;
-      width: 100%;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-      transform: translateY(-2px);
-    }
-
-    .btn-primary:active { transform: scale(0.98); }
-    .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
-
-    .result-box {
-      margin-top: 30px;
-      padding: 20px;
-      background: rgba(15, 23, 42, 0.8);
-      border-radius: 12px;
-      border: 1px dashed #06b6d4;
-      text-align: left;
-      display: none; 
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .result-label {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      margin-bottom: 5px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .original-url {
-      font-size: 0.9rem;
-      color: #cbd5e1;
-      margin-bottom: 15px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .short-url {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #0ea5e9;
-      margin-bottom: 20px;
-      word-break: break-all;
-    }
-
+    .site-logo { max-width: 180px; height: auto; margin-bottom: 10px; cursor: pointer; }
+    header h1 { font-size: 2.2rem; font-weight: 800; cursor: pointer; background: linear-gradient(to right, #a855f7, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    header p { font-size: 1rem; font-weight: 600; color: #94a3b8; margin-top: 5px; }
+    .main-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; flex: 1; width: 100%; }
+    .tool-box { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px 30px; border-radius: 20px; box-shadow: 0 0 30px rgba(6, 182, 212, 0.2); width: 100%; max-width: 550px; margin: 20px auto; }
+    .url-input { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #334155; background: #0f172a; color: white; font-size: 1rem; outline: none; margin-bottom: 20px; }
+    .btn-primary { background: linear-gradient(135deg, #a855f7, #06b6d4); color: white; border: none; padding: 16px 20px; font-weight: 800; border-radius: 12px; width: 100%; cursor: pointer; }
+    .result-box { margin-top: 30px; padding: 20px; background: rgba(15, 23, 42, 0.8); border-radius: 12px; border: 1px dashed #06b6d4; text-align: left; display: none; }
+    .short-url { font-size: 1.1rem; font-weight: 800; color: #0ea5e9; margin-bottom: 20px; word-break: break-all; }
     .action-buttons { display: flex; gap: 12px; }
-
-    .btn-secondary {
-      flex: 1;
-      background: #1e293b;
-      color: white;
-      border: 1px solid #334155;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-secondary:hover { background: #334155; border-color: #475569; }
-
-    .error-msg {
-      color: #ef4444;
-      font-size: 0.9rem;
-      margin-top: 10px;
-      display: none;
-    }
-
-    .btn-back { 
-      background: transparent;
-      border: 1px solid #475569;
-      margin-top: 25px; 
-      font-size: 14px; 
-      text-decoration: none; 
-      display: inline-block; 
-      padding: 10px 20px;
-      font-weight: 600;
-      border-radius: 8px;
-      color: #94a3b8;
-      transition: all 0.2s;
-    }
-
-    .btn-back:hover { background: #1e293b; color: white; border-color: #64748b; }
-    
-    footer { 
-      background: #0f172a; 
-      border-top: 1px solid #1e293b; 
-      padding: 30px 20px; 
-      color: #64748b; 
-      font-size: 0.9rem; 
-      margin-top: auto; 
-    }
-    footer a { color: #0ea5e9; text-decoration: none; font-weight: 600; }
+    .btn-secondary { flex: 1; background: #1e293b; color: white; border: 1px solid #334155; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
   <header>
-    <a href="index.html">
-      <img alt="Zonqr Tools Logo" class="site-logo" src="logo.png" onerror="this.style.display='none'"/>
-    </a>
-    <h1 onclick="window.location.href='index.html'">Zonqr Tools</h1>
+    <h1>Zonqr Tools</h1>
     <p>Premium & Futuristic Free Online Tools</p>
   </header>
 
   <div class="main-container">
     <div class="tool-box">
       <h2>🔗 URL Shortener</h2>
-      <div class="tool-info">
-        Paste your long link below to create a clean, premium short URL instantly.
-      </div>
-      
-      <div class="input-group">
-        <input type="url" id="longUrlInput" class="url-input" placeholder="example.com/your-long-link" autocomplete="off">
-        <div id="errorMsg" class="error-msg">Please enter a valid URL.</div>
-      </div>
-
+      <input type="url" id="longUrlInput" class="url-input" placeholder="Paste your long link here..." autocomplete="off">
       <button class="btn-primary" id="generateBtn">🚀 Generate Short Link</button>
 
       <div class="result-box" id="resultContainer">
-        <div class="result-label" id="statusLabel">Your Short Link</div>
-        <div class="original-url" id="originalUrlDisplay"></div>
-
-        <div class="result-label">Your Short Link</div>
+        <div id="statusLabel" style="font-size: 0.8rem; color: #06b6d4; margin-bottom: 10px;"></div>
         <div class="short-url" id="shortUrlDisplay"></div>
-
         <div class="action-buttons">
           <button class="btn-secondary" id="copyBtn">📋 Copy</button>
           <button class="btn-secondary" id="openBtn">🌐 Open</button>
         </div>
       </div>
-
-      <a href="index.html" class="btn-back">⬅️ Back to Home</a>
     </div>
   </div>
-
-  <footer>
-    <div><strong><a href="index.html">ZonqrTools.kalvivaanam.in</a></strong> &copy; 2026 &mdash; All Rights Reserved.</div>
-  </footer>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -291,114 +67,54 @@
     const generateBtn = document.getElementById("generateBtn");
     const longUrlInput = document.getElementById("longUrlInput");
     const resultContainer = document.getElementById("resultContainer");
-    const originalUrlDisplay = document.getElementById("originalUrlDisplay");
     const shortUrlDisplay = document.getElementById("shortUrlDisplay");
     const copyBtn = document.getElementById("copyBtn");
     const openBtn = document.getElementById("openBtn");
-    const errorMsg = document.getElementById("errorMsg");
     const statusLabel = document.getElementById("statusLabel");
 
     const BASE_SHORT_URL = "https://zonqrtools.kalvivaanam.in/purl.html?id=";
     let currentShortUrl = "";
 
-    function generateRandomID() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      let result = "";
-      for (let i = 0; i < 6; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return result;
-    }
-
-    function formatURL(url) {
-      if (!url) return null;
-      url = url.trim();
-      if (!/^https?:\/\//i.test(url)) {
-        url = 'https://' + url;
-      }
-      try {
-        new URL(url);
-        return url;
-      } catch (e) {
-        return null;
-      }
-    }
-
     generateBtn.addEventListener("click", async () => {
-      errorMsg.style.display = "none";
-      resultContainer.style.display = "none";
-      
-      let finalUrl = formatURL(longUrlInput.value);
-      
-      if (!finalUrl) {
-        errorMsg.style.display = "block";
-        return;
-      }
+      let longUrl = longUrlInput.value.trim();
+      if (!longUrl) return alert("Please enter a URL");
 
       generateBtn.disabled = true;
-      generateBtn.innerHTML = "⏳ Checking Database...";
+      generateBtn.innerText = "⏳ Processing...";
 
       try {
-        // --- 1. DUPLICATE CHECK LOGIC ---
         const urlsRef = collection(db, "urls");
-        const q = query(urlsRef, where("originalUrl", "==", finalUrl));
-        const querySnapshot = await getDocs(q);
+        const q = query(urlsRef, where("originalUrl", "==", longUrl));
+        const snapshot = await getDocs(q);
 
-        let uniqueID = "";
-
-        if (!querySnapshot.empty) {
-          // URL already exists! Fetch old ID
-          uniqueID = querySnapshot.docs[0].data().shortCode;
-          statusLabel.innerHTML = "✨ Existing Link Found!";
+        let shortCode = "";
+        if (!snapshot.empty) {
+          shortCode = snapshot.docs[0].data().shortCode;
+          statusLabel.innerText = "✨ Existing Link Found!";
         } else {
-          // URL is new! Generate fresh unique ID
-          statusLabel.innerHTML = "🚀 New Short Link Generated!";
-          let isUnique = false;
-          while (!isUnique) {
-            uniqueID = generateRandomID();
-            const docRef = doc(db, "urls", uniqueID);
-            const docSnap = await getDoc(docRef);
-            if (!docSnap.exists()) {
-              isUnique = true;
-            }
-          }
-
-          // Save new entry to Firestore
-          await setDoc(doc(db, "urls", uniqueID), {
-            originalUrl: finalUrl,
-            shortCode: uniqueID,
+          shortCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+          await setDoc(doc(db, "urls", shortCode), {
+            originalUrl: longUrl,
+            shortCode: shortCode,
             clicks: 0,
             createdAt: serverTimestamp()
           });
+          statusLabel.innerText = "🚀 New Link Created!";
         }
 
-        // Show Results
-        currentShortUrl = BASE_SHORT_URL + uniqueID;
-        originalUrlDisplay.innerText = finalUrl;
+        currentShortUrl = BASE_SHORT_URL + shortCode;
         shortUrlDisplay.innerText = currentShortUrl;
-        
         resultContainer.style.display = "block";
-        longUrlInput.value = "";
-        
-      } catch (error) {
-        console.error("Firebase Error: ", error);
-        alert("An error occurred. Please try again.");
+      } catch (e) {
+        alert("Error: " + e.message);
       } finally {
         generateBtn.disabled = false;
-        generateBtn.innerHTML = "🚀 Generate Short Link";
+        generateBtn.innerText = "🚀 Generate Short Link";
       }
     });
 
-    copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText(currentShortUrl).then(() => {
-        copyBtn.innerHTML = "✅ Copied!";
-        setTimeout(() => { copyBtn.innerHTML = "📋 Copy"; }, 2000);
-      });
-    });
-
-    openBtn.addEventListener("click", () => {
-      if (currentShortUrl) { window.open(currentShortUrl, "_blank"); }
-    });
+    copyBtn.onclick = () => { navigator.clipboard.writeText(currentShortUrl); alert("Copied!"); };
+    openBtn.onclick = () => window.open(currentShortUrl, "_blank");
   </script>
 </body>
 </html>
