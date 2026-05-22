@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Previewing Link... - Zonqr Tools</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .redirect-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .loader {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-left-color: #a855f7;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .search-box-container {
+      margin-top: 20px;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 2px solid #334155;
+      background: #0f172a;
+      color: #06b6d4;
+      font-size: 0.95rem;
+      text-align: center;
+      outline: none;
+      font-weight: 600;
+    }
+
+    .status-text {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      margin-top: 15px;
+    }
+
+    .error-container { display: none; }
+    .btn-home {
+      background: linear-gradient(135deg, #a855f7, #06b6d4);
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="redirect-box" id="mainBox">
+    <!-- Loading Screen state -->
+    <div id="loadingState">
+      <div class="loader"></div>
+      <div class="status-text" id="statusMessage">Analyzing Document ID...</div>
+      
+      <!-- User workflow requirement: Destination URL lands in this box -->
+      <div class="search-box-container">
+        <input type="text" id="destinationDisplay" class="search-box" placeholder="Fetching original URL..." readonly>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="errorState" class="error-container">
+      <h1 style="font-size: 3.5rem; color: #ef4444; margin-bottom: 10px;">404</h1>
+      <h2 style="font-size: 1.3rem; margin-bottom: 10px;">Link Not Found</h2>
+      <p style="color: #64748b; font-size: 0.95rem;">The short code is invalid or has been deleted.</p>
+      <a href="surl.html" class="btn-home">Go Back</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDvfmi1IB--svbmXitMHRMyrvnIPA28DW4",
+      authDomain: "zonqr-db.firebaseapp.com",
+      projectId: "zonqr-db",
+      storageBucket: "zonqr-db.firebasestorage.app",
+      messagingSenderId: "1038668023878",
+      appId: "1:1038668023878:web:63c2af52ab655871c8a247",
+      measurementId: "G-PRMV84KLX7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function processRedirect() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const docID = urlParams.get('id');
+
+      const loadingState = document.getElementById("loadingState");
+      const errorState = document.getElementById("errorState");
+      const destinationDisplay = document.getElementById("destinationDisplay");
+      const statusMessage = document.getElementById("statusMessage");
+
+      if (!docID) {
+        showError();
+        return;
+      }
+
+      try {
+        // Fetch original document from Firestore using the ID
+        const docRef = doc(db, "urls", docID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const originalUrl = docSnap.data().originalUrl;
+
+          // 1. Paste original URL into the destination search box
+          destinationDisplay.value = originalUrl;
+          statusMessage.innerHTML = "✨ URL Found! Opening in a new tab...";
+
+          // 2. Increment Clicks (+1) in Firestore
+          await updateDoc(docRef, { clicks: increment(1) });
+
+          // 3. Automatically open in a new tab after 800ms delay for visual workflow confirmation
+          setTimeout(() => {
+            window.open(originalUrl, "_blank");
+            statusMessage.innerHTML = "🚀 Opened! If it didn't open, click the link inside the box.";
+          }, 800);
+
+        } else {
+          showError();
+        }
+      } catch (error) {
+        console.error("Error during redirect processing: ", error);
+        showError();
+      }
+
+      function showError() {
+        loadingState.style.display = "none";
+        errorState.style.display = "block";
+        document.title = "404 Not Found - Zonqr Tools";
+      }
+    }
+
+    // Run when the window loads
+    window.onload = processRedirect;
+  </script>
+</body>
+</html>
