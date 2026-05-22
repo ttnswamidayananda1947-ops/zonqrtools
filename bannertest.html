@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banner Test - Zonqr Tools</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Link Test - Zonqr Tools</title>
 
   <style>
     *{
@@ -14,114 +14,98 @@
 
     body{
       font-family:Poppins,sans-serif;
-      background:linear-gradient(135deg,#0f172a,#020617);
-      min-height:100vh;
+      background:linear-gradient(135deg,#020617,#0f172a);
       color:white;
+      min-height:100vh;
       display:flex;
       justify-content:center;
       align-items:center;
-      flex-direction:column;
       padding:20px;
-      text-align:center;
     }
 
     .box{
       width:100%;
-      max-width:700px;
+      max-width:500px;
       background:white;
       color:black;
-      padding:30px 20px;
-      border-radius:20px;
+      padding:35px 25px;
+      border-radius:25px;
+      text-align:center;
       box-shadow:0 0 40px rgba(0,255,255,0.25);
     }
 
     h1{
       font-size:2rem;
       margin-bottom:10px;
-      font-weight:800;
       color:#0f172a;
     }
 
     p{
       color:#64748b;
+      line-height:1.7;
       margin-bottom:25px;
-      line-height:1.6;
+      font-size:1rem;
     }
 
-    .ad-box{
-      margin:25px 0;
-      padding:15px;
-      border:2px dashed #cbd5e1;
-      border-radius:15px;
-      min-height:120px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:#f8fafc;
+    .btn{
+      display:inline-block;
+      background:linear-gradient(135deg,#06b6d4,#3b82f6);
+      color:white;
+      text-decoration:none;
+      padding:15px 28px;
+      border-radius:14px;
+      font-size:1rem;
+      font-weight:700;
+      transition:0.2s;
+      border:none;
+      cursor:pointer;
     }
 
-    .label{
-      margin-bottom:10px;
-      font-size:14px;
+    .btn:active{
+      transform:scale(0.96);
+    }
+
+    .note{
+      margin-top:25px;
+      font-size:0.85rem;
       color:#94a3b8;
-      font-weight:600;
     }
   </style>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
   <div class="box">
 
-    <h1>🔥 Banner Ads Test</h1>
+    <h1>🔥 Smart Link Test</h1>
 
     <p>
-      Testing Monetag banner formats for clean user experience and safe ads.
+      Testing Monetag Direct Smart Link Ad.<br>
+      Click the button below to test ad quality and user experience.
     </p>
 
-    <div class="label">
-      In-Page Push Banner
-    </div>
+    <button class="btn" onclick="openAd()">
+      Open Smart Link
+    </button>
 
-    <div class="ad-box">
-
-      <script>
-      (function(s){
-        s.dataset.zone='11040951',
-        s.src='https://nap5k.com/tag.min.js'
-      })(
-        [document.documentElement, document.body]
-        .filter(Boolean)
-        .pop()
-        .appendChild(document.createElement('script'))
-      )
-      </script>
-
-    </div>
-
-    <div class="label">
-      Vignette Banner
-    </div>
-
-    <div class="ad-box">
-
-      <script>
-      (function(s){
-        s.dataset.zone='11040953',
-        s.src='https://n6wxm.com/vignette.min.js'
-      })(
-        [document.documentElement, document.body]
-        .filter(Boolean)
-        .pop()
-        .appendChild(document.createElement('script'))
-      )
-      </script>
-
+    <div class="note">
+      Zonqr Tools • Clean UX Ad Testing
     </div>
 
   </div>
+
+  <script>
+    function openAd(){
+
+      window.open(
+        "https://omg10.com/4/11040998",
+        "_blank"
+      );
+
+    }
+  </script>
 
 </body>
 </html>
