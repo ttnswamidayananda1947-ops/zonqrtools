@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Studio Pro - Zonqr Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #020617;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      text-align: center;
+      padding: 36px 20px 12px;
+    }
+
+    .site-logo { max-width: 140px; cursor: pointer; margin-bottom: 10px; }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p.tagline { color: #64748b; font-size: 13px; margin-top: 4px; }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 50px;
+      width: 100%;
+      max-width: 620px;
+      gap: 26px;
+    }
+
+    .standard-box {
+      background: #ffffff;
+      color: #1e293b;
+      padding: 28px 26px;
+      border-radius: 22px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .standard-box h2 { color: #0f172a; font-size: 1.25rem; }
+
+    .premium-section {
+      width: 100%;
+      padding: 28px 26px;
+      border-radius: 22px;
+      background: linear-gradient(160deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      border: 1.5px solid rgba(251,191,36,0.4);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(251,191,36,0.08) inset;
+    }
+
+    .premium-section h2 { color: #fbbf24; font-size: 1.25rem; }
+
+    h2 { margin-bottom: 20px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+
+    .label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 7px;
+    }
+
+    .standard-box .label { color: #64748b; }
+    .premium-section .label { color: #94a3b8; }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 18px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      color: #1e293b;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fff;
+    }
+
+    input[type="text"]:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+    }
+
+    .gradient-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+      gap: 7px;
+      padding: 13px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      margin-bottom: 18px;
+    }
+
+    .swatch {
+      aspect-ratio: 1;
+      border-radius: 9px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    }
+
+    .swatch:hover { transform: scale(1.18); }
+
+    .swatch.active {
+      border-color: #fff;
+      box-shadow: 0 0 0 2.5px #fbbf24, 0 4px 14px rgba(0,0,0,0.5);
+      transform: scale(1.1);
+    }
+
+    .upload-zone {
+      border: 2px dashed rgba(255,255,255,0.18);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 18px;
+      transition: border-color 0.2s, background 0.2s;
+      min-height: 58px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .upload-zone:hover { border-color: #fbbf24; background: rgba(251,191,36,0.05); }
+
+    .upload-text { color: #64748b; font-size: 12px; line-height: 1.5; }
+    .upload-text strong { color: #fbbf24; }
+
+    input[type="file"] { display: none; }
+
+    #logoPreview {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      object-fit: cover;
+      display: none;
+      margin-bottom: 4px;
+    }
+
+    #uploadStatus { font-size: 11px; color: #10b981; font-weight: 600; display: none; margin-top: 4px; }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-blue {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      box-shadow: 0 4px 18px rgba(59,130,246,0.4);
+    }
+    .btn-blue:hover { box-shadow: 0 6px 24px rgba(59,130,246,0.55); }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+      color: #1a0000;
+      box-shadow: 0 4px 18px rgba(251,191,36,0.35);
+    }
+    .btn-gold:hover { box-shadow: 0 6px 24px rgba(251,191,36,0.5); }
+
+    .qr-output {
+      margin-top: 22px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      animation: fadeUp 0.4s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .qr-output.show { display: flex; }
+
+    canvas { border-radius: 16px; max-width: 100%; display: block; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+
+    .dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 13px;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 4px 16px rgba(16,185,129,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(16,185,129,0.5); }
+
+    footer { color: #334155; font-size: 11px; text-align: center; padding: 18px; }
+
+    .btn.loading { opacity: 0.7; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" class="site-logo" onclick="location.href='index.html'" onerror="this.style.display='none'">
+  <h1>QR Studio Pro</h1>
+  <p class="tagline">High-quality styled QR codes in seconds</p>
+</header>
+
+<div class="main-container">
+
+  <!-- Standard QR -->
+  <div class="standard-box">
+    <h2>🔳 Standard QR</h2>
+    <label class="label">Enter URL or Text</label>
+    <input type="text" id="basicInput" placeholder="https://example.com">
+    <button class="btn btn-blue" id="btnBasic" onclick="generate('basic')">Generate QR Code</button>
+    <div id="basicOutput" class="qr-output">
+      <canvas id="basicCanvas"></canvas>
+      <a id="dlBasic" class="dl-btn" href="#">⬇ Download PNG</a>
+    </div>
+  </div>
+
+  <!-- Premium QR – separate standalone section -->
+  <div class="premium-section">
+    <h2>💎 Premium Style QR</h2>
+
+    <label class="label">Enter URL or Text</label>
+    <input type="text" id="premiumInput" placeholder="https://your-premium-link.com">
+
+    <label class="label">Background Style</label>
+    <div class="gradient-grid" id="swatchGrid"></div>
+
+    <label class="label">Center Logo (Optional)</label>
+    <div class="upload-zone" onclick="document.getElementById('logoFile').click()">
+      <img id="logoPreview" src="" alt="Logo preview">
+      <p class="upload-text" id="uploadText">Tap to upload your logo → <strong>Browse</strong></p>
+      <span id="uploadStatus">✓ Logo ready</span>
+    </div>
+    <input type="file" id="logoFile" accept="image/*">
+
+    <button class="btn btn-gold" id="btnPremium" onclick="generate('premium')">✨ Generate Premium QR</button>
+
+    <div id="premiumOutput" class="qr-output">
+      <canvas id="premiumCanvas"></canvas>
+      <a id="dlPremium" class="dl-btn" href="#">⬇ Download High-Res PNG</a>
+    </div>
+  </div>
+
+</div>
+
+<div id="qrHidden" style="position:fixed;left:-9999px;top:0;visibility:hidden;pointer-events:none;width:1px;height:1px;overflow:hidden;"></div>
+
+<footer>© 2025 Zonqr Tools · zonqrtools.kalvivaanam.in</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const GRADIENTS = [
+  "linear-gradient(135deg,#ff0080,#ff4d00,#ffcc00)",
+  "linear-gradient(135deg,#ff00cc,#3333ff)",
+  "linear-gradient(135deg,#ff0066,#ff6600,#ffcc00)",
+  "linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)",
+  "linear-gradient(135deg,#d4145a,#fbb03b)",
+  "linear-gradient(135deg,#ff512f,#dd2476)",
+  "linear-gradient(135deg,#c471f5,#fa71cd)",
+  "linear-gradient(135deg,#ff0844,#ffb199)",
+  "linear-gradient(135deg,#f953c6,#b91d73)",
+  "linear-gradient(135deg,#fc466b,#3f5efb)",
+  "linear-gradient(135deg,#ff9966,#ff5e62)",
+  "linear-gradient(135deg,#ee0979,#ff6a00)",
+  "linear-gradient(135deg,#7f00ff,#e100ff)",
+  "linear-gradient(135deg,#f000ff,#00dbde)",
+  "linear-gradient(135deg,#ff758c,#ff7eb3)",
+  "linear-gradient(135deg,#ff3cac,#784ba0,#2b86c5)",
+  "linear-gradient(135deg,#ff0099,#493240)",
+  "linear-gradient(135deg,#fc4a1a,#f7b733)",
+  "linear-gradient(135deg,#8e2de2,#4a00e0)",
+  "linear-gradient(135deg,#ff6a00,#ee0979,#8e2de2)",
+  "linear-gradient(135deg,#00c6ff,#0072ff,#ff00cc)",
+  "linear-gradient(135deg,#ff416c,#ff4b2b)",
+  "linear-gradient(135deg,#654ea3,#eaafc8)",
+  "linear-gradient(135deg,#f857a6,#ff5858)",
+  "linear-gradient(135deg,#ff00ff,#00ffff)",
+  "linear-gradient(135deg,#ff1493,#9400d3,#4b0082)",
+  "linear-gradient(135deg,#ff512f,#f09819)",
+  "linear-gradient(135deg,#00f260,#0575e6)",
+  "linear-gradient(135deg,#fc00ff,#00dbde)",
+  "linear-gradient(135deg,#ff5f6d,#ffc371)"
+];
+
+let selectedGrad = GRADIENTS[0];
+let logoData = null;
+
+// Build swatch grid
+const swatchGrid = document.getElementById('swatchGrid');
+GRADIENTS.forEach((g, i) => {
+  const el = document.createElement('div');
+  el.className = 'swatch' + (i === 0 ? ' active' : '');
+  el.style.background = g;
+  el.title = 'Style ' + (i + 1);
+  el.onclick = () => {
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    selectedGrad = g;
+  };
+  swatchGrid.appendChild(el);
+});
+
+// Logo upload
+document.getElementById('logoFile').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    logoData = ev.target.result;
+    const img = document.getElementById('logoPreview');
+    img.src = logoData;
+    img.style.display = 'block';
+    document.getElementById('uploadText').style.display = 'none';
+    document.getElementById('uploadStatus').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+function extractColors(grad) {
+  return grad.match(/#[a-fA-F0-9]{6}/g) || ['#222222','#444444'];
+}
+
+function getMatrix(text) {
+  return new Promise(function(resolve, reject) {
+    const div = document.getElementById('qrHidden');
+    div.innerHTML = '';
+    let qr;
+    try {
+      qr = new QRCode(div, { text: text, width: 100, height: 100, correctLevel: QRCode.CorrectLevel.H });
+    } catch(e) { return reject(e); }
+    setTimeout(function() {
+      try {
+        const model = qr._oQRCode;
+        const n = model.getModuleCount();
+        const mat = [];
+        for (let r = 0; r < n; r++) {
+          mat[r] = [];
+          for (let c = 0; c < n; c++) mat[r][c] = model.isDark(r, c);
+        }
+        resolve({ mat: mat, n: n });
+      } catch(e) { reject(e); }
+    }, 200);
+  });
+}
+
+function rrect(ctx, x, y, w, h, r) {
+  r = Math.min(r, w/2, h/2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x+w, y,   x+w, y+h, r);
+  ctx.arcTo(x+w, y+h, x,   y+h, r);
+  ctx.arcTo(x,   y+h, x,   y,   r);
+  ctx.arcTo(x,   y,   x+w, y,   r);
+  ctx.closePath();
+}
+
+function drawFinder(ctx, fx, fy, ms, dark, light) {
+  var fw = 7 * ms;
+  var cr = ms * 1.5;
+  ctx.fillStyle = dark;
+  rrect(ctx, fx, fy, fw, fw, cr);
+  ctx.fill();
+  ctx.fillStyle = light;
+  rrect(ctx, fx + ms, fy + ms, 5*ms, 5*ms, cr * 0.5);
+  ctx.fill();
+  ctx.fillStyle = dark;
+  ctx.beginPath();
+  ctx.arc(fx + 3.5*ms, fy + 3.5*ms, 1.5*ms, 0, Math.PI*2);
+  ctx.fill();
+}
+
+function drawQRModules(ctx, mat, n, ox, oy, ms, dark, light) {
+  ctx.fillStyle = dark;
+  for (var r = 0; r < n; r++) {
+    for (var c = 0; c < n; c++) {
+      if (!mat[r][c]) continue;
+      if (r < 8 && c < 8)       continue;
+      if (r < 8 && c >= n-8)    continue;
+      if (r >= n-8 && c < 8)    continue;
+      ctx.beginPath();
+      ctx.arc(ox + c*ms + ms/2, oy + r*ms + ms/2, ms*0.44, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+  drawFinder(ctx, ox,              oy,              ms, dark, light);
+  drawFinder(ctx, ox + (n-7)*ms,   oy,              ms, dark, light);
+  drawFinder(ctx, ox,              oy + (n-7)*ms,   ms, dark, light);
+}
+
+function drawWatermark(ctx, cx, y, onDark) {
+  var line1 = 'did you want to create like this QR go to';
+  var line2 = 'https://zonqrtools.kalvivaanam.in/qrcode.html';
+  ctx.textAlign = 'center';
+  if (onDark) {
+    ctx.fillStyle = 'rgba(255,255,255,0.72)';
+    ctx.font = '500 11px Poppins, Arial, sans-serif';
+    ctx.fillText(line1, cx, y);
+    ctx.fillStyle = 'rgba(255,255,255,1)';
+    ctx.font = '800 11px Poppins, Arial, sans-serif';
+    ctx.fillText(line2, cx, y + 21);
+  } else {
+    ctx.fillStyle = '#64748b';
+    ctx.font = '500 11px Poppins, Arial, sans-serif';
+    ctx.fillText(line1, cx, y);
+    ctx.fillStyle = '#2563eb';
+    ctx.font = '700 11px Poppins, Arial, sans-serif';
+    ctx.fillText(line2, cx, y + 21);
+  }
+}
+
+async function generate(type) {
+  var isBasic = (type === 'basic');
+  var inputId = isBasic ? 'basicInput' : 'premiumInput';
+  var text = document.getElementById(inputId).value.trim();
+  if (!text) { alert('Please enter a URL or text'); return; }
+
+  var btnId = isBasic ? 'btnBasic' : 'btnPremium';
+  var btn = document.getElementById(btnId);
+  var origText = btn.textContent;
+  btn.classList.add('loading');
+  btn.textContent = 'Generating…';
+
+  try {
+    var result = await getMatrix(text);
+    var mat = result.mat, n = result.n;
+
+    var canvasId  = isBasic ? 'basicCanvas'  : 'premiumCanvas';
+    var outputId  = isBasic ? 'basicOutput'  : 'premiumOutput';
+    var dlId      = isBasic ? 'dlBasic'      : 'dlPremium';
+    var dlName    = isBasic ? 'QR_Basic'     : 'QR_Premium';
+
+    var canvas = document.getElementById(canvasId);
+    var ctx    = canvas.getContext('2d');
+
+    if (isBasic) {
+      var W = 500, QPAD = 24, WMARK = 56, H = W + WMARK;
+      canvas.width = W; canvas.height = H;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, W, H);
+
+      var qrArea = W - QPAD*2;
+      var ms = qrArea / n;
+      drawQRModules(ctx, mat, n, QPAD, QPAD, ms, '#0f172a', '#ffffff');
+      drawWatermark(ctx, W/2, W + 13, false);
+
+    } else {
+      var W = 540, QPAD = 26, IPAD = 26, WMARK = 60, H = W + WMARK;
+      canvas.width = W; canvas.height = H;
+
+      // Full gradient (covers everything incl watermark strip)
+      var colors = extractColors(selectedGrad);
+      var grd = ctx.createLinearGradient(0, 0, W, H);
+      colors.forEach(function(c, i) {
+        grd.addColorStop(i / Math.max(colors.length - 1, 1), c);
+      });
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, W, H);
+
+      // White rounded box
+      var boxW = W - QPAD*2, boxH = boxW;
+      ctx.fillStyle = 'rgba(255,255,255,0.96)';
+      rrect(ctx, QPAD, QPAD, boxW, boxH, 22);
+      ctx.fill();
+
+      // QR inside box
+      var qrArea = boxW - IPAD*2;
+      var ms = qrArea / n;
+      var ox = QPAD + IPAD, oy = QPAD + IPAD;
+      drawQRModules(ctx, mat, n, ox, oy, ms, '#1a0533', '#ffffff');
+
+      // Optional logo
+      if (logoData) {
+        await new Promise(function(resolve) {
+          var img = new Image();
+          img.onload = function() {
+            var cx = ox + qrArea/2, cy = oy + qrArea/2;
+            var ls = qrArea * 0.165, lp = 7;
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(cx, cy, ls/2 + lp, 0, Math.PI*2);
+            ctx.fill();
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, ls/2, 0, Math.PI*2);
+            ctx.clip();
+            ctx.drawImage(img, cx - ls/2, cy - ls/2, ls, ls);
+            ctx.restore();
+            resolve();
+          };
+          img.onerror = resolve;
+          img.src = logoData;
+        });
+      }
+
+      // Watermark on gradient strip
+      drawWatermark(ctx, W/2, W + 13, true);
+    }
+
+    document.getElementById(outputId).classList.add('show');
+    var dl = document.getElementById(dlId);
+    dl.href = canvas.toDataURL('image/png', 1.0);
+    dl.download = dlName + '_' + Date.now() + '.png';
+
+  } catch(err) {
+    alert('QR generation failed. Please try again.\n' + (err.message || err));
+  } finally {
+    btn.classList.remove('loading');
+    btn.textContent = origText;
+  }
+}
+</script>
+</body>
+</html>
