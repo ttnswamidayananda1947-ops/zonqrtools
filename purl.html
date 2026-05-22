@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>Previewing Link... - Zonqr Tools</title>
+  <title>Open Link - Zonqr Tools</title>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,6 +17,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
     
     .redirect-box {
@@ -27,79 +28,146 @@
       padding: 40px 30px;
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
-      width: 90%;
+      width: 100%;
       max-width: 500px;
+      transition: all 0.3s ease;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .instruction-text {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+
+    .loader-container {
+      display: none; /* Hidden by default */
+      margin-bottom: 20px;
     }
 
     .loader {
       border: 4px solid rgba(255, 255, 255, 0.1);
       border-left-color: #a855f7;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 45px;
+      height: 45px;
       animation: spin 1s linear infinite;
-      margin: 20px auto;
+      margin: 0 auto 10px auto;
     }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+    .status-text {
+      color: #06b6d4;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
     .search-box-container {
-      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     .search-box {
       width: 100%;
-      padding: 14px;
-      border-radius: 10px;
+      padding: 16px;
+      border-radius: 12px;
       border: 2px solid #334155;
       background: #0f172a;
-      color: #06b6d4;
-      font-size: 0.95rem;
+      color: #fff;
+      font-size: 1rem;
       text-align: center;
       outline: none;
       font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
     }
 
-    .status-text {
-      color: #94a3b8;
-      font-size: 1.1rem;
-      margin-top: 15px;
+    .search-box:focus:not(:read-only) {
+      border-color: #06b6d4;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
     }
 
-    .error-container { display: none; }
-    .btn-home {
+    .search-box:read-only {
+      color: #06b6d4;
+      border-color: #475569;
+      background: #1e293b;
+    }
+
+    .btn-primary {
       background: linear-gradient(135deg, #a855f7, #06b6d4);
       color: white;
+      border: none;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      border-radius: 12px;
+      width: 100%;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:active { transform: scale(0.98); }
+
+    .error-container { display: none; }
+    
+    .btn-home {
+      background: transparent;
+      border: 1px solid #ef4444;
+      color: #ef4444;
       text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 10px;
+      padding: 10px 24px;
+      border-radius: 8px;
       display: inline-block;
       margin-top: 20px;
       font-weight: 600;
+      transition: 0.2s;
     }
+    .btn-home:hover { background: #ef4444; color: white; }
+    
+    .hidden { display: none !important; }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
   <div class="redirect-box" id="mainBox">
-    <!-- Loading Screen state -->
-    <div id="loadingState">
+    
+    <!-- Header Area -->
+    <h2 id="pageTitle">🌐 Open Link</h2>
+    <p id="instructionText" class="instruction-text">Enter your Short ID or URL below.</p>
+
+    <!-- Loading Animation -->
+    <div id="loaderContainer" class="loader-container">
       <div class="loader"></div>
-      <div class="status-text" id="statusMessage">Analyzing Document ID...</div>
-      
-      <!-- User workflow requirement: Destination URL lands in this box -->
-      <div class="search-box-container">
-        <input type="text" id="destinationDisplay" class="search-box" placeholder="Fetching original URL..." readonly>
-      </div>
+      <div class="status-text" id="statusMessage">Checking Database...</div>
     </div>
 
-    <!-- Error state -->
+    <!-- Input Box (Works as both Input and Display) -->
+    <div class="search-box-container">
+      <input type="text" id="urlInputBox" class="search-box" placeholder="e.g. aB3xQ9 or paste full URL" autocomplete="off">
+    </div>
+
+    <!-- Open Button -->
+    <button id="actionBtn" class="btn-primary">🚀 Open Link</button>
+
+    <!-- Error State -->
     <div id="errorState" class="error-container">
       <h1 style="font-size: 3.5rem; color: #ef4444; margin-bottom: 10px;">404</h1>
       <h2 style="font-size: 1.3rem; margin-bottom: 10px;">Link Not Found</h2>
       <p style="color: #64748b; font-size: 0.95rem;">The short code is invalid or has been deleted.</p>
       <a href="surl.html" class="btn-home">Go Back</a>
     </div>
+
   </div>
 
   <script type="module">
@@ -119,58 +187,113 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    async function processRedirect() {
+    // UI Elements
+    const urlInputBox = document.getElementById("urlInputBox");
+    const actionBtn = document.getElementById("actionBtn");
+    const loaderContainer = document.getElementById("loaderContainer");
+    const statusMessage = document.getElementById("statusMessage");
+    const instructionText = document.getElementById("instructionText");
+    const errorState = document.getElementById("errorState");
+    const pageTitle = document.getElementById("pageTitle");
+
+    // Check if ID is present in URL on Page Load
+    window.onload = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const docID = urlParams.get('id');
 
-      const loadingState = document.getElementById("loadingState");
-      const errorState = document.getElementById("errorState");
-      const destinationDisplay = document.getElementById("destinationDisplay");
-      const statusMessage = document.getElementById("statusMessage");
+      if (docID) {
+        // SCENARIO 1: ID is in the URL (Direct Click / Auto Mode)
+        triggerAutoFetch(docID);
+      } else {
+        // SCENARIO 2: No ID (Manual Typing Mode)
+        urlInputBox.focus();
+      }
+    };
 
-      if (!docID) {
-        showError();
+    // Button Click Logic for Manual Entry
+    actionBtn.addEventListener("click", () => {
+      const inputValue = urlInputBox.value.trim();
+      if (!inputValue) {
+        alert("Please enter a short code or URL!");
         return;
       }
 
+      // Extract ID if user pastes full URL (e.g., https://.../?id=aB3xQ9)
+      let extractedID = inputValue;
+      if (inputValue.includes("id=")) {
+        try {
+          const params = new URL(inputValue).searchParams;
+          extractedID = params.get("id");
+        } catch (e) {
+          extractedID = inputValue.split("id=").pop().split("&")[0];
+        }
+      } else if (inputValue.includes("/")) {
+        // Just in case they paste something like domain.com/aB3xQ9
+        const parts = inputValue.split("/");
+        extractedID = parts[parts.length - 1];
+      }
+
+      if (extractedID) {
+        triggerAutoFetch(extractedID);
+      }
+    });
+
+    // Main Fetch & Redirect Logic
+    async function triggerAutoFetch(docID) {
+      // Setup UI for Loading State
+      actionBtn.classList.add("hidden");
+      instructionText.classList.add("hidden");
+      loaderContainer.style.display = "block";
+      
+      // Lock the input box and show fetching text
+      urlInputBox.readOnly = true;
+      if (urlInputBox.value === "" || urlInputBox.value === docID) {
+        urlInputBox.value = "Fetching original URL...";
+      }
+
       try {
-        // Fetch original document from Firestore using the ID
         const docRef = doc(db, "urls", docID);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
           const originalUrl = docSnap.data().originalUrl;
 
-          // 1. Paste original URL into the destination search box
-          destinationDisplay.value = originalUrl;
-          statusMessage.innerHTML = "✨ URL Found! Opening in a new tab...";
+          // Replace short code in the text box with the original URL (Your logic!)
+          urlInputBox.value = originalUrl;
+          statusMessage.innerHTML = "✨ URL Found! Redirecting...";
+          statusMessage.style.color = "#10b981"; // Success Green
 
-          // 2. Increment Clicks (+1) in Firestore
+          // Increment Clicks
           await updateDoc(docRef, { clicks: increment(1) });
 
-          // 3. Automatically open in a new tab after 800ms delay for visual workflow confirmation
+          // Open in new tab after 1 second
           setTimeout(() => {
             window.open(originalUrl, "_blank");
-            statusMessage.innerHTML = "🚀 Opened! If it didn't open, click the link inside the box.";
-          }, 800);
+            statusMessage.innerHTML = "🚀 Opened! You can close this tab.";
+            pageTitle.innerText = "✅ Success";
+            loaderContainer.querySelector(".loader").style.display = "none";
+          }, 1000);
 
         } else {
           showError();
         }
       } catch (error) {
-        console.error("Error during redirect processing: ", error);
+        console.error("Firebase Error: ", error);
         showError();
-      }
-
-      function showError() {
-        loadingState.style.display = "none";
-        errorState.style.display = "block";
-        document.title = "404 Not Found - Zonqr Tools";
       }
     }
 
-    // Run when the window loads
-    window.onload = processRedirect;
+    function showError() {
+      // Hide everything else, show 404
+      pageTitle.classList.add("hidden");
+      instructionText.classList.add("hidden");
+      urlInputBox.classList.add("hidden");
+      actionBtn.classList.add("hidden");
+      loaderContainer.style.display = "none";
+      
+      errorState.style.display = "block";
+      document.title = "404 Not Found - Zonqr Tools";
+    }
   </script>
 </body>
 </html>
