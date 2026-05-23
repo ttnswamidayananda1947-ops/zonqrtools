@@ -19,50 +19,136 @@
       align-items: center;
       padding: 20px;
     }
-
-    .ad-banner-container { margin-bottom: 25px; width: 100%; max-width: 728px; display: flex; justify-content: center; }
     
     .redirect-box {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 40px 30px;
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
       width: 100%;
       max-width: 500px;
+      transition: all 0.3s ease;
     }
 
-    h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
-    .instruction-text { color: #94a3b8; font-size: 0.95rem; margin-bottom: 25px; }
-    
-    .loader-container { display: none; margin-bottom: 20px; }
-    .loader { border: 4px solid rgba(255, 255, 255, 0.1); border-left-color: #a855f7; border-radius: 50%; width: 45px; height: 45px; animation: spin 1s linear infinite; margin: 0 auto 10px auto; }
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .instruction-text {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+
+    .loader-container {
+      display: none;
+      margin-bottom: 20px;
+    }
+
+    .loader {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-left-color: #a855f7;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px auto;
+    }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    .search-box { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #334155; background: #0f172a; color: #fff; font-size: 1rem; text-align: center; outline: none; font-weight: 600; margin-bottom: 20px; }
-    
-    .btn-primary { background: linear-gradient(135deg, #a855f7, #06b6d4); color: white; border: none; padding: 14px 20px; font-size: 1.1rem; font-weight: 800; border-radius: 12px; width: 100%; cursor: pointer; }
-    
-    .action-buttons { display: none; gap: 12px; margin-top: 20px; }
-    .btn-secondary { flex: 1; background: #1e293b; color: white; border: 1px solid #334155; padding: 14px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+    .status-text {
+      color: #06b6d4;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .search-box-container { margin-bottom: 20px; }
+
+    .search-box {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: 2px solid #334155;
+      background: #0f172a;
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+      outline: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .search-box:focus:not(:read-only) {
+      border-color: #06b6d4;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+    }
+
+    .search-box:read-only {
+      color: #10b981;
+      border-color: #475569;
+      background: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Primary Search Button */
+    .btn-primary {
+      background: linear-gradient(135deg, #a855f7, #06b6d4);
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      border-radius: 12px;
+      width: 100%;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); transform: translateY(-2px); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    /* Result Action Buttons (Open & Copy) */
+    .action-buttons {
+      display: none; /* Hidden initially */
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn-secondary {
+      flex: 1;
+      background: #1e293b;
+      color: white;
+      border: 1px solid #334155;
+      padding: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    .btn-secondary:hover { background: #334155; border-color: #06b6d4; }
     .btn-open { background: linear-gradient(135deg, #10b981, #059669); border: none; }
-    
-    /* 300x250 Ad Position */
-    .ad-300-container { margin-top: 25px; display: flex; justify-content: center; }
-    
+    .btn-open:hover { box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+
     .error-container { display: none; }
+    .btn-home { background: transparent; border: 1px solid #ef4444; color: #ef4444; text-decoration: none; padding: 10px 24px; border-radius: 8px; display: inline-block; margin-top: 20px; font-weight: 600; transition: 0.2s; }
+    .btn-home:hover { background: #ef4444; color: white; }
+    
     .hidden { display: none !important; }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
-  <div class="ad-banner-container">
-    <script>atOptions = {'key' : '0e4afde268c78b1f86ee5ef28a491a59', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {}};</script>
-    <script src="https://balancedsuppercreed.com/0e4afde268c78b1f86ee5ef28a491a59/invoke.js"></script>
-  </div>
-
   <div class="redirect-box" id="mainBox">
+    
     <h2 id="pageTitle">🌐 Get Your Link</h2>
     <p id="instructionText" class="instruction-text">Enter your Short Code below to fetch the original URL.</p>
 
@@ -71,7 +157,10 @@
       <div class="status-text" id="statusMessage">Searching Database...</div>
     </div>
 
-    <input type="text" id="urlInputBox" class="search-box" placeholder="e.g. aB3xQ9" autocomplete="off">
+    <div class="search-box-container">
+      <input type="text" id="urlInputBox" class="search-box" placeholder="e.g. aB3xQ9" autocomplete="off">
+    </div>
+
     <button id="searchBtn" class="btn-primary">🔍 Search Link</button>
 
     <div id="actionButtons" class="action-buttons">
@@ -79,61 +168,136 @@
       <button id="openBtn" class="btn-secondary btn-open">🌐 Open Link</button>
     </div>
 
-    <!-- 300x250 Banner added here -->
-    <div id="ad300" class="ad-300-container" style="display: none;">
-      <script>atOptions = {'key' : '369d1a61b64dd3dec39f12e9944c804d', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {}};</script>
-      <script src="https://balancedsuppercreed.com/369d1a61b64dd3dec39f12e9944c804d/invoke.js"></script>
+    <div id="errorState" class="error-container">
+      <h1 style="font-size: 3.5rem; color: #ef4444; margin-bottom: 10px;">404</h1>
+      <h2 style="font-size: 1.3rem; margin-bottom: 10px;">Link Not Found</h2>
+      <p style="color: #64748b; font-size: 0.95rem;">The short code is invalid or has been deleted.</p>
+      <a href="surl.html" class="btn-home">Go Back</a>
     </div>
+
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-    const firebaseConfig = { apiKey: "AIzaSyDvfmi1IB--svbmXitMHRMyrvnIPA28DW4", authDomain: "zonqr-db.firebaseapp.com", projectId: "zonqr-db", storageBucket: "zonqr-db.firebasestorage.app", messagingSenderId: "1038668023878", appId: "1:1038668023878:web:63c2af52ab655871c8a247", measurementId: "G-PRMV84KLX7" };
-    const db = getFirestore(initializeApp(firebaseConfig));
+    const firebaseConfig = {
+      apiKey: "AIzaSyDvfmi1IB--svbmXitMHRMyrvnIPA28DW4",
+      authDomain: "zonqr-db.firebaseapp.com",
+      projectId: "zonqr-db",
+      storageBucket: "zonqr-db.firebasestorage.app",
+      messagingSenderId: "1038668023878",
+      appId: "1:1038668023878:web:63c2af52ab655871c8a247",
+      measurementId: "G-PRMV84KLX7"
+    };
 
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // UI Elements
     const urlInputBox = document.getElementById("urlInputBox");
     const searchBtn = document.getElementById("searchBtn");
     const actionButtons = document.getElementById("actionButtons");
     const copyBtn = document.getElementById("copyBtn");
+    const openBtn = document.getElementById("openBtn");
     const loaderContainer = document.getElementById("loaderContainer");
+    const statusMessage = document.getElementById("statusMessage");
+    const instructionText = document.getElementById("instructionText");
+    const errorState = document.getElementById("errorState");
     const pageTitle = document.getElementById("pageTitle");
+
     let finalOriginalUrl = "";
 
-    searchBtn.addEventListener("click", async () => {
-      let docID = urlInputBox.value.trim();
-      if (!docID) return alert("Enter code!");
-      
-      searchBtn.classList.add("hidden");
-      loaderContainer.style.display = "block";
-      
-      const docSnap = await getDoc(doc(db, "urls", docID));
-      if (docSnap.exists()) {
-        finalOriginalUrl = docSnap.data().originalUrl;
-        loaderContainer.style.display = "none";
-        pageTitle.innerText = "✅ Link Found!";
-        urlInputBox.value = finalOriginalUrl;
-        actionButtons.style.display = "flex";
-        document.getElementById("ad300").style.display = "flex"; // Show banner
+    // Check if ID is present in URL on Page Load
+    window.onload = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const docID = urlParams.get('id');
+
+      if (docID) {
+        // Direct link hit, fetch automatically
+        triggerFetch(docID);
+      } else {
+        urlInputBox.focus();
       }
+    };
+
+    // Click logic for Search Button
+    searchBtn.addEventListener("click", () => {
+      let inputValue = urlInputBox.value.trim();
+      if (!inputValue) {
+        alert("Please enter a short code!");
+        return;
+      }
+
+      // Extract ID if they paste full URL
+      let extractedID = inputValue;
+      if (inputValue.includes("id=")) {
+        extractedID = new URL(inputValue).searchParams.get("id") || inputValue.split("id=")[1];
+      } else if (inputValue.includes("/")) {
+        const parts = inputValue.split("/");
+        extractedID = parts[parts.length - 1];
+      }
+
+      triggerFetch(extractedID);
     });
 
-    copyBtn.addEventListener("click", () => {
-      // Trigger Popunder Ad on click
-      const script = document.createElement('script');
-      script.src = "https://balancedsuppercreed.com/b8/64/4b/b8644b412f45eef45c93c96a9b98c169.js";
-      document.body.appendChild(script);
+    // Main Fetch Logic
+    async function triggerFetch(docID) {
+      searchBtn.classList.add("hidden");
+      instructionText.classList.add("hidden");
+      loaderContainer.style.display = "block";
+      urlInputBox.readOnly = true;
+      urlInputBox.value = "Fetching original URL...";
 
+      try {
+        const docRef = doc(db, "urls", docID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          finalOriginalUrl = docSnap.data().originalUrl;
+
+          // Increment Clicks (Background Process)
+          updateDoc(docRef, { clicks: increment(1) }).catch(e => console.log("Click tracking error:", e));
+
+          // Update UI on Success
+          loaderContainer.style.display = "none";
+          pageTitle.innerText = "✅ Link Found!";
+          urlInputBox.value = finalOriginalUrl; // Show original URL
+          actionButtons.style.display = "flex"; // Show Open & Copy buttons
+
+        } else {
+          showError();
+        }
+      } catch (error) {
+        console.error("Firebase Error: ", error);
+        showError();
+      }
+    }
+
+    // Button Actions
+    copyBtn.addEventListener("click", () => {
       navigator.clipboard.writeText(finalOriginalUrl).then(() => {
         copyBtn.innerText = "✅ Copied!";
         setTimeout(() => { copyBtn.innerText = "📋 Copy"; }, 2000);
       });
     });
 
-    document.getElementById("openBtn").addEventListener("click", () => window.location.href = finalOriginalUrl);
-  </script>
+    openBtn.addEventListener("click", () => {
+      // Direct link open (Won't trigger popup blocker)
+      window.location.href = finalOriginalUrl; 
+    });
 
-  <script src="https://balancedsuppercreed.com/14/bd/d9/14bdd96cc0568c80149e6ad07d83178a.js"></script>
+    function showError() {
+      pageTitle.classList.add("hidden");
+      instructionText.classList.add("hidden");
+      urlInputBox.classList.add("hidden");
+      searchBtn.classList.add("hidden");
+      actionButtons.style.display = "none";
+      loaderContainer.style.display = "none";
+      
+      errorState.style.display = "block";
+      document.title = "404 Not Found - Zonqr Tools";
+    }
+  </script>
 </body>
-</html>
+  </html>
