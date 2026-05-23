@@ -22,8 +22,9 @@
     .url-input:focus { border-color: #06b6d4; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
     
     .btn-primary { background: linear-gradient(135deg, #a855f7, #06b6d4); color: white; border: none; padding: 16px 20px; font-weight: 800; border-radius: 12px; width: 100%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    .btn-primary:hover { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); transform: translateY(-2px); }
-    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:hover:not(:disabled) { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); transform: translateY(-2px); }
+    .btn-primary:active:not(:disabled) { transform: scale(0.98); }
+    .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
     
     .btn-publish { background: linear-gradient(135deg, #10b981, #059669); margin-bottom: 15px; display: none; }
     .btn-publish:hover { box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
@@ -97,7 +98,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, serverTimestamp, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDvfmi1IB--svbmXitMHRMyrvnIPA28DW4",
@@ -136,24 +137,56 @@
       try { new URL(url); return url; } catch (e) { return false; }
     }
 
-    // 1. Generate Link Locally
-    generateBtn.addEventListener("click", () => {
+    // 1. Check DB & Generate Link
+    generateBtn.addEventListener("click", async () => {
       let rawUrl = longUrlInput.value.trim();
       pendingLongUrl = isValidURL(rawUrl);
 
       if (!pendingLongUrl) return alert("Please enter a valid URL (e.g., example.com)");
 
-      // Generate random 6 character code
-      pendingShortCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-      currentShortUrl = BASE_SHORT_URL + pendingShortCode;
+      generateBtn.disabled = true;
+      generateBtn.innerText = "⏳ Checking Database...";
 
-      shortUrlDisplay.innerText = currentShortUrl;
-      statusLabel.innerText = "⚠️ Link Generated! Click 'Publish' to activate it.";
-      statusLabel.style.color = "#f59e0b"; // Orange Warning
-      
-      resultContainer.style.display = "block";
-      publishBtn.style.display = "block";
-      actionButtons.style.display = "none";
+      try {
+        // ஏற்கெனவே டேட்டாபேஸில் இந்த லிங்க் இருக்கிறதா என்று சோதிக்க
+        const urlsRef = collection(db, "urls");
+        const q = query(urlsRef, where("originalUrl", "==", pendingLongUrl));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          // லிங்க் இருந்தால், பழைய ஷார்ட் கோடை எடுத்துக்கொள்ளும்
+          const existingDoc = querySnapshot.docs[0];
+          pendingShortCode = existingDoc.data().shortCode;
+          currentShortUrl = BASE_SHORT_URL + pendingShortCode;
+
+          shortUrlDisplay.innerText = currentShortUrl;
+          statusLabel.innerText = "✨ Existing Link Found!";
+          statusLabel.style.color = "#10b981"; // Green
+
+          resultContainer.style.display = "block";
+          publishBtn.style.display = "none"; // ஏற்கனவே பப்ளிஷ் ஆனது, அதனால் மறைக்கிறோம்
+          actionButtons.style.display = "flex"; // நேரடியாக Copy/Open காட்டும்
+
+        } else {
+          // லிங்க் இல்லையென்றால், புதிய ஷார்ட் கோடு உருவாக்கும்
+          pendingShortCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+          currentShortUrl = BASE_SHORT_URL + pendingShortCode;
+
+          shortUrlDisplay.innerText = currentShortUrl;
+          statusLabel.innerText = "⚠️ Link Generated! Click 'Publish' to activate it.";
+          statusLabel.style.color = "#f59e0b"; // Orange
+          
+          resultContainer.style.display = "block";
+          publishBtn.style.display = "block"; // பப்ளிஷ் செய்ய கேட்கும்
+          actionButtons.style.display = "none"; // பப்ளிஷ் ஆகும்வரை Copy/Open காட்டாது
+        }
+      } catch (e) {
+        console.error("Error fetching data:", e);
+        alert("Something went wrong! Please check your connection.");
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.innerText = "🚀 Generate Short Link";
+      }
     });
 
     // 2. Publish to Firebase & Trigger Smartlink Ad
@@ -161,7 +194,7 @@
       publishBtn.disabled = true;
       publishBtn.innerText = "⏳ Publishing...";
 
-      // Smartlink Ad Trigger (Opens in new tab so user doesn't lose the short link)
+      // Smartlink Ad Trigger
       window.open("https://balancedsuppercreed.com/i45vms09?key=78c856e6170a2fbba6022cec86b75a77", "_blank");
 
       try {
@@ -198,7 +231,5 @@
 
   <script type='text/javascript' src='//balancedsuppercreed.com/14/bd/d9/14bdd96cc0568c80149e6ad07d83178a.js'></script>
   
-  <script type='text/javascript' src='//balancedsuppercreed.com/b8/64/4b/b8644b412f45eef45c93c96a9b98c169.js'></script>
-
 </body>
 </html>
