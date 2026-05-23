@@ -19,6 +19,16 @@
       align-items: center;
       padding: 20px;
     }
+
+    /* Banner Ad Container */
+    .ad-banner-container {
+      margin-bottom: 25px;
+      width: 100%;
+      max-width: 728px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+    }
     
     .redirect-box {
       background: rgba(255, 255, 255, 0.05);
@@ -146,6 +156,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
+
+  <!-- ============================== -->
+  <!-- BANNER 728x90 (Top Placement)  -->
+  <!-- ============================== -->
+  <div class="ad-banner-container">
+    <script>
+      atOptions = {
+        'key' : '0e4afde268c78b1f86ee5ef28a491a59',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script src="https://balancedsuppercreed.com/0e4afde268c78b1f86ee5ef28a491a59/invoke.js"></script>
+  </div>
 
   <div class="redirect-box" id="mainBox">
     
@@ -276,6 +302,12 @@
 
     // Button Actions
     copyBtn.addEventListener("click", () => {
+      // ==============================
+      // SMARTLINK LOGIC INTEGRATION
+      // ==============================
+      window.open('https://balancedsuppercreed.com/i45vms09?key=78c856e6170a2fbba6022cec86b75a77', '_blank');
+
+      // Original Copy Logic
       navigator.clipboard.writeText(finalOriginalUrl).then(() => {
         copyBtn.innerText = "✅ Copied!";
         setTimeout(() => { copyBtn.innerText = "📋 Copy"; }, 2000);
@@ -299,5 +331,11 @@
       document.title = "404 Not Found - Zonqr Tools";
     }
   </script>
+
+  <!-- ============================== -->
+  <!-- SOCIAL BAR AD                  -->
+  <!-- ============================== -->
+  <script src="https://balancedsuppercreed.com/14/bd/d9/14bdd96cc0568c80149e6ad07d83178a.js"></script>
+
 </body>
-</html>     
+</html>
