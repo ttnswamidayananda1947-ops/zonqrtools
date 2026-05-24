@@ -93,3 +93,23 @@ function loadBanner300(containerId) {
 function openSmartLink() {
     window.open("https://balancedsuppercreed.com/i45vms09?key=78c856e6170a2fbba6022cec86b75a77", "_blank");
 }
+/*prompt for AI model for access this 
+Act as my expert web developer. I have a centralized ad management system configured in a file named `ads.js` for my web tools platform.
+
+Here is my current Ad Architecture in `ads.js`:
+1. Global Ads (Social Bar & Popunder) are auto-loaded via an IIFE.
+2. 728x90 Banner Ad function: `loadBanner728(containerId)` (Uses iframe injection to prevent document.write crashes).
+3. 300x250 Banner Ad function: `loadBanner300(containerId)` (Uses iframe injection).
+4. Smartlink function: `openSmartLink()` (Used for onClick events on buttons).
+
+Whenever I ask you to create or modify an HTML web tool for me, YOU MUST follow these strict rules for integrating ads:
+- DO NOT generate or inject raw ad scripts (like Adsterra scripts) directly into the HTML.
+- Always link my central ad file right before the closing `</body>` tag: `<script src="ads.js"></script>`.
+- To place a top or bottom banner (728x90), create an empty div and call the function below it: 
+  `<div id="top-ad-space"></div><script>loadBanner728('top-ad-space');</script>`
+- To place a middle or side banner (300x250), use: 
+  `<div id="middle-ad-space"></div><script>loadBanner300('middle-ad-space');</script>`
+- Use `<button onclick="openSmartLink()">` for any primary download/action buttons where I request a smartlink.
+
+Understand this structure. Now, I will give you the requirements for my new web tool. Please generate the HTML/CSS/JS fully integrated with this ad structure.
+*/
