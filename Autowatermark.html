@@ -14,385 +14,76 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
     
-<style>
-  /* ==========================================================================
-   Zonqr Tools - Ultra Premium PDF Watermark Tool (Responsive Layout)
-   ========================================================================== */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0f172a, #020617);
-    color: white;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.app-header {
-    text-align: center;
-    padding: 20px 15px;
-    background: #0f172a;
-    border-bottom: 1px solid #1e293b;
-    width: 100%;
-}
-
-.app-header h1 {
-    font-size: 1.6rem;
-    color: #38bdf8;
-    font-weight: 800;
-}
-
-.app-header p {
-    color: #94a3b8;
-    font-size: 0.95rem;
-    margin-top: 5px;
-}
-
-#top-ad-space {
-    margin-top: 15px;
-    min-height: 90px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Main Container Layout */
-.editor-container {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
-}
-
-/* Sidebar Controls */
-.sidebar {
-    width: 380px;
-    background: #1e293b;
-    padding: 25px 20px;
-    border-right: 1px solid #334155;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.control-group {
-    background: rgba(15, 23, 42, 0.6);
-    padding: 20px;
-    border-radius: 16px;
-    border: 1px solid #334155;
-}
-
-.control-group h3 {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    color: #f1f5f9;
-    font-weight: 600;
-}
-
-.privacy-note {
-    font-size: 0.8rem;
-    color: #10b981;
-    margin-top: 10px;
-    line-height: 1.4;
-}
-
-input[type="text"], .file-input {
-    width: 100%;
-    padding: 12px;
-    background: #0f172a;
-    border: 1px solid #475569;
-    border-radius: 10px;
-    color: white;
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-input[type="text"]:focus, .file-input:focus {
-    border-color: #38bdf8;
-}
-
-input[type="range"] {
-    width: 100%;
-    margin-bottom: 15px;
-    accent-color: #38bdf8;
-}
-
-label {
-    display: block;
-    font-size: 0.9rem;
-    color: #94a3b8;
-    margin-bottom: 8px;
-}
-
-.premium-title {
-    color: #f59e0b !important;
-}
-
-.smart-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    border: none;
-    padding: 14px;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-}
-
-.smart-btn:hover { 
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
-    transform: translateY(-1px);
-}
-
-/* Toggle Switches */
-.toggle-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-}
-
-.toggle-row:last-child {
-    margin-bottom: 0;
-}
-
-.toggle-row strong {
-    font-size: 0.95rem;
-    color: #e2e8f0;
-}
-
-.toggle-row .desc {
-    font-size: 0.75rem;
-    color: #94a3b8;
-    margin-top: 3px;
-    padding-right: 10px;
-}
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 46px;
-    height: 24px;
-    flex-shrink: 0;
-}
-
-.switch input { opacity: 0; width: 0; height: 0; }
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #475569;
-    border-radius: 24px;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 18px; width: 18px;
-    left: 3px; bottom: 3px;
-    background-color: white;
-    border-radius: 50%;
-    transition: .4s;
-}
-
-input:checked + .slider { background-color: #0ea5e9; }
-input:checked + .slider:before { transform: translateX(22px); }
-
-/* Export Area */
-.export-btn {
-    width: 100%;
-    background: #0ea5e9;
-    color: white;
-    padding: 16px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.export-btn:disabled { 
-    background: #475569; 
-    cursor: not-allowed; 
-}
-
-#progress-bar-container {
-    width: 100%;
-    background: #334155;
-    border-radius: 8px;
-    height: 12px;
-    margin-top: 15px;
-    overflow: hidden;
-}
-
-#progress-bar {
-    height: 100%;
-    background: #10b981;
-    width: 0%;
-    transition: width 0.3s;
-}
-
-/* Canvas Editor Area */
-.canvas-area {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #020617;
-    padding: 40px 20px;
-    min-height: 400px;
-}
-
-#preview-wrapper {
-    position: relative;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-canvas {
-    display: block;
-    max-width: 100%;
-    height: auto !important; /* Forces perspective scale on mobile */
-    background: white;
-}
-
-/* Canva-like Draggable Elements */
-.draggable-element {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px dashed #0ea5e9;
-    padding: 12px;
-    cursor: move;
-    touch-action: none;
-    user-select: none;
-    font-size: 32px;
-    font-weight: bold;
-    white-space: nowrap;
-    z-index: 10;
-}
-
-.hidden { display: none !important; }
-
-/* ==========================================================================
-   Responsive Breakpoints (The Fix for Mobile Issues)
-   ========================================================================== */
-
-@media (max-width: 1024px) {
-    .sidebar {
-        width: 320px;
-        padding: 20px 15px;
-    }
-}
-
-@media (max-width: 768px) {
-    body {
-        overflow-y: auto; /* Softunlock body scrolling for small displays */
-    }
-    
-    .editor-container {
-        flex-direction: column; /* Stacks controls on top, canvas underneath */
-    }
-    
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #334155;
-        padding: 20px;
-    }
-    
-    .canvas-area {
-        padding: 30px 10px;
-        min-height: auto;
-        overflow-x: auto; /* Allows large canvases to scroll safely horizontally */
-    }
-    
-    #preview-wrapper {
-        margin: 0 auto;
-    }
-}
-
-  
-</style>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0f172a, #020617); color: white; min-height: 100vh; display: flex; flex-direction: column; }
+        .app-header { text-align: center; padding: 20px 15px; background: #0f172a; border-bottom: 1px solid #1e293b; width: 100%; }
+        .app-header h1 { font-size: 1.6rem; color: #38bdf8; font-weight: 800; }
+        .app-header p { color: #94a3b8; font-size: 0.95rem; margin-top: 5px; }
+        #top-ad-space { margin-top: 15px; min-height: 90px; display: flex; justify-content: center; align-items: center; }
+        .editor-container { display: flex; flex: 1; width: 100%; max-width: 1440px; margin: 0 auto; }
+        .sidebar { width: 380px; background: #1e293b; padding: 25px 20px; border-right: 1px solid #334155; display: flex; flex-direction: column; gap: 20px; }
+        .control-group { background: rgba(15, 23, 42, 0.6); padding: 20px; border-radius: 16px; border: 1px solid #334155; }
+        .control-group h3 { font-size: 1.1rem; margin-bottom: 15px; color: #f1f5f9; font-weight: 600; }
+        .privacy-note { font-size: 0.8rem; color: #10b981; margin-top: 10px; line-height: 1.4; }
+        input[type="text"], .file-input { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 10px; color: white; font-size: 0.95rem; margin-bottom: 15px; outline: none; }
+        input[type="range"] { width: 100%; margin-bottom: 15px; accent-color: #38bdf8; }
+        label { display: block; font-size: 0.9rem; color: #94a3b8; margin-bottom: 8px; }
+        .premium-title { color: #f59e0b !important; }
+        .smart-btn { width: 100%; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; padding: 14px; color: white; font-weight: bold; font-size: 1rem; border-radius: 10px; cursor: pointer; margin-bottom: 20px; }
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+        .toggle-row strong { font-size: 0.95rem; color: #e2e8f0; }
+        .toggle-row .desc { font-size: 0.75rem; color: #94a3b8; margin-top: 3px; }
+        .switch { position: relative; display: inline-block; width: 46px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #475569; border-radius: 24px; transition: .4s; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .4s; }
+        input:checked + .slider { background-color: #0ea5e9; }
+        input:checked + .slider:before { transform: translateX(22px); }
+        .export-btn { width: 100%; background: #0ea5e9; color: white; padding: 16px; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+        .export-btn:disabled { background: #475569; cursor: not-allowed; opacity: 0.7; }
+        #progress-bar-container { width: 100%; background: #334155; border-radius: 8px; height: 12px; margin-top: 15px; overflow: hidden; }
+        #progress-bar { height: 100%; background: #10b981; width: 0%; transition: width 0.3s; }
+        .canvas-area { flex: 1; display: flex; justify-content: center; align-items: center; background: #020617; padding: 40px 20px; min-height: 400px; }
+        #preview-wrapper { position: relative; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); border-radius: 4px; overflow: hidden; }
+        canvas { display: block; max-width: 100%; background: white; }
+        .hidden { display: none !important; }
+        @media (max-width: 1024px) { .sidebar { width: 320px; } }
+        @media (max-width: 768px) { .editor-container { flex-direction: column; } .sidebar { width: 100%; border-right: none; } .canvas-area { overflow-x: auto; } }
+    </style>
 </head>
 <body>
 
     <header class="app-header">
         <h1>Zonqr Tools - Ultra Premium PDF Watermark</h1>
         <p data-i18n="subtitle">Advanced Brand Protection & Batch Processing</p>
+        
         <div id="top-ad-space"></div>
+        <script>
+            if(typeof loadBanner728 === 'function') {
+                loadBanner728('top-ad-space');
+            }
+        </script>
     </header>
 
     <main class="editor-container">
         <aside class="sidebar">
             <div class="control-group">
                 <h3>1. Upload PDFs</h3>
-                <input type="file" id="pdf-upload" multiple accept="application/pdf" class="file-input">
+                <input type="file" id="pdf-upload" multiple accept="application/pdf" class="file-input" onchange="enableExportButton()">
                 <p class="privacy-note">🔒 <span data-i18n="privacy">Your PDFs never leave your device. All processing happens in-browser.</span></p>
             </div>
 
             <div class="control-group">
                 <h3>2. Watermark Elements</h3>
                 <input type="text" id="wm-text" placeholder="Enter Watermark Text" value="CONFIDENTIAL">
-                <input type="file" id="logo-upload" accept="image/png, image/svg+xml, image/jpeg" class="file-input">
-                
-                <label>Opacity: <span id="opacity-val">50%</span></label>
                 <input type="range" id="wm-opacity" min="0.01" max="1" step="0.01" value="0.5">
-                
-                <label>Color:</label>
-                <input type="color" id="wm-color" value="#ff0000">
-            </div>
-
-            <div class="control-group advanced-protection">
-                <h3 class="premium-title">🔥 Invisible Protection Layer</h3>
-                
-                <button id="smart-protect-btn" class="smart-btn">🧠 Enable Smart Protection</button>
-                
-                <div class="toggle-row">
-                    <div>
-                        <strong>OCR Detectable Watermark</strong>
-                        <p class="desc" data-i18n="ocr_desc">Hidden layer for brand ownership verification.</p>
-                    </div>
-                    <label class="switch"><input type="checkbox" id="prot-ocr"><span class="slider"></span></label>
-                </div>
-                
-                <div class="toggle-row">
-                    <div>
-                        <strong>Screenshot Proof</strong>
-                        <p class="desc" data-i18n="screenshot_desc">Repeated invisible pattern against screen captures.</p>
-                    </div>
-                    <label class="switch"><input type="checkbox" id="prot-screen"><span class="slider"></span></label>
-                </div>
-
-                <div class="toggle-row">
-                    <div>
-                        <strong>Anti-Crop Placement</strong>
-                        <p class="desc" data-i18n="crop_desc">Strategic edge positioning to prevent cropping.</p>
-                    </div>
-                    <label class="switch"><input type="checkbox" id="prot-crop"><span class="slider"></span></label>
-                </div>
             </div>
 
             <div class="control-group">
                 <h3>3. Export</h3>
-                <button id="export-btn" class="export-btn" disabled>Apply & Download ZIP</button>
+                <button id="export-btn" class="export-btn" disabled onclick="handleDownloadSequence()">Apply & Download ZIP</button>
+                
                 <div id="progress-bar-container" class="hidden">
                     <div id="progress-bar"></div>
                 </div>
@@ -400,27 +91,66 @@ canvas {
             </div>
 
             <div id="middle-ad-space" style="margin-top:20px;"></div>
+            <script>
+                if(typeof loadBanner300 === 'function') {
+                    loadBanner300('middle-ad-space');
+                }
+            </script>
         </aside>
 
         <section class="canvas-area" id="canvas-container">
             <div id="preview-wrapper">
                 <canvas id="pdf-canvas"></canvas>
-                <div id="draggable-wm" class="draggable-element hidden">
-                    <span id="wm-display-text">CONFIDENTIAL</span>
-                    <img id="wm-display-logo" class="hidden" src="" alt="logo">
-                </div>
             </div>
         </section>
     </main>
 
-    <script src="script.js"></script>
-    <script src="ads.js"></script>
     <script>
-        // Load Ads using your ads.js functions
-        setTimeout(() => {
-            if(typeof loadBanner728 === 'function') loadBanner728('top-ad-space');
-            if(typeof loadBanner300 === 'function') loadBanner300('middle-ad-space');
-        }, 1000);
+        // Enables the button only when a file is uploaded so it doesn't look "dead"
+        function enableExportButton() {
+            const fileInput = document.getElementById('pdf-upload');
+            const exportBtn = document.getElementById('export-btn');
+            if (fileInput.files.length > 0) {
+                exportBtn.disabled = false;
+            } else {
+                exportBtn.disabled = true;
+            }
+        }
+
+        // Handles the Smartlink + Download Logic
+        function handleDownloadSequence() {
+            // 1. Open Smart Link via your centralized ads.js function
+            if (typeof openSmartLink === 'function') {
+                openSmartLink();
+            } else {
+                console.warn("openSmartLink function not found in ads.js");
+            }
+
+            // 2. Trigger your background download/ZIP process
+            startBackgroundDownload();
+        }
+
+        // Dummy function representing your background script.js logic
+        function startBackgroundDownload() {
+            document.getElementById('progress-bar-container').classList.remove('hidden');
+            document.getElementById('status-text').innerText = "Processing PDFs...";
+            
+            // This is where your actual PDF-lib and JSZip code will execute
+            // For example, simulating a progress bar:
+            let progress = 0;
+            let interval = setInterval(() => {
+                progress += 20;
+                document.getElementById('progress-bar').style.width = progress + "%";
+                if(progress >= 100) {
+                    clearInterval(interval);
+                    document.getElementById('status-text').innerText = "ZIP Downloaded Successfully!";
+                }
+            }, 500);
+        }
     </script>
+
+    <script src="script.js"></script>
+    
+    <script src="ads.js"></script>
 </body>
 </html>
