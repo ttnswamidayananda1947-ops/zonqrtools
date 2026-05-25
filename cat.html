@@ -120,6 +120,14 @@
       transform: scale(0.97); 
     }
     
+    /* Ad Containers */
+    .ad-container {
+      margin: 15px auto;
+      text-align: center;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
     footer { 
       background: #0f172a; 
       border-top: 1px solid #1e293b; 
@@ -168,6 +176,20 @@
 
   <div class="main-container">
     
+    <!-- Top Banner Ad -->
+    <div class="ad-container">
+      <script>
+        atOptions = {
+          'key' : '3ef80947f8e1d185790bac0680cb82ba',
+          'format' : 'iframe',
+          'height' : 60,
+          'width' : 468,
+          'params' : {}
+        };
+      </script>
+      <script src="https://balancedsuppercreed.com/3ef80947f8e1d185790bac0680cb82ba/invoke.js"></script>
+    </div>
+
     <div class="tool-box">
 
       <h2>🐱 Hit The Cat</h2>
@@ -192,6 +214,20 @@
 
     </div>
 
+    <!-- Bottom Banner Ad -->
+    <div class="ad-container">
+      <script>
+        atOptions = {
+          'key' : '3ef80947f8e1d185790bac0680cb82ba',
+          'format' : 'iframe',
+          'height' : 60,
+          'width' : 468,
+          'params' : {}
+        };
+      </script>
+      <script src="https://balancedsuppercreed.com/3ef80947f8e1d185790bac0680cb82ba/invoke.js"></script>
+    </div>
+
   </div>
 
   <footer>
@@ -214,6 +250,10 @@
     var catClicks = 0;
 
     function hitCat() {
+      // 6 முறைக்கு மேல் கிளிக் செய்தால் Ad Link ஓபன் ஆகும்
+      if (catClicks >= 6) {
+        window.open("https://balancedsuppercreed.com/cfbk3dqj?key=b5774fa10207909f2e5ca0176b2259d3", "_blank");
+      }
 
       catClicks++;
 
@@ -237,6 +277,9 @@
       }, 200);
     }
   </script>
+
+  <!-- Social Banner Ad (Placed before closing body) -->
+  <script src="https://balancedsuppercreed.com/14/bd/d9/14bdd96cc0568c80149e6ad07d83178a.js"></script>
 
 </body>
 </html>
